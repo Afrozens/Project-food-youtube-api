@@ -1,3 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
+@layer components {
+    .has-value {
+        @apply font-bold  text-lg text-gray-700  -translate-y-[1.4rem] scale-[0.8] items-center bg-gray-100 inline-flex left-5 top-3 truncate leading-[2.15] px-2 rounded-md h-[23px] !important;
+    }
+
+    .label-form-up {
+        @apply gap-2 pointer-events-none absolute left-5 top-1 bg-transparent mb-0 max-w-[90%] origin-[0_0] truncate  leading-[2.15] text-gray-600 transition-all duration-200 ease-out peer-focus:-translate-y-[1.4rem] peer-focus:scale-[0.8] peer-focus:text-lg peer-focus:text-gray-700 peer-data-[te-input-state-active]:-translate-y-[0.8rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none peer-focus:font-bold peer-focus:bg-gray-100 peer-focus:top-3 h-[30px] inline-flex peer-focus:items-center peer-focus:px-2 rounded-md peer-focus:h-[23px];
+    }
+
+    .label-form-up b {
+        @apply peer-focus:text-red-500;
+    }
+
+    .select-label-form-up {
+        @apply gap-2 absolute left-3  bg-transparent mb-0 max-w-[90%] origin-[0_0] truncate  leading-[2.15] transition-all duration-200 ease-out -translate-y-[0.8rem] scale-[0.8] text-lg text-gray-700 peer-data-[te-input-state-active]:-translate-y-[0.8rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none font-bold z-[1] bg-gray-100 top-0 h-[23px] inline-flex items-center px-2 rounded-md;
+    }
+
+    .input-form-up {
+        @apply ring-1 ring-slate-300 border-0 border-gray-50 focus:border-0 focus:outline-none hover:ring-1 hover:ring-slate-400 hover:border-0 hover:outline-none block min-h-[auto] w-full rounded bg-gray-50 px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 focus:ring-1 focus:ring-slate-400 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none peer-focus:ml-0;
+    }
+
+    .typografy-main {
+        @apply font-bold flex items-center gap-1 text-2xl;
+    }
+
+    .typografy-medium {
+        @apply font-semibold  items-center gap-1 text-xl;
+    }
+
+    .typografy-small {
+        @apply whitespace-pre text-sm  font-semibold;
+    }
+
+    .text-extra-sm {
+        @apply text-[10px] leading-[15px] capitalize text-[#1F2937];
+    }
+
+    .text-extra-md {
+        @apply text-[13px] font-semibold  leading-[19.5px] text-[#1F2937];
+    }
+
+    .text-minus-base {
+        @apply text-[14px] font-bold leading-[21px] capitalize text-[#1F2937];
+    }
+
+    .paragraph {
+        @apply font-normal text-sm;
+    }
+
+    .footer-title {
+        @apply flex gap-3 hover:opacity-80 transition-all;
+    }
+}
 @tailwind utilities;

@@ -56,7 +56,11 @@ const handlePassword = () => {
             ref="input"
         />
         <button
-            v-show="id === 'password' || id === 'password_confirmation'"
+            v-show="
+                id === 'password' ||
+                id === 'password_confirmation' ||
+                id === 'password_current'
+            "
             type="button"
             class="absolute top-1/2 hover:scale-110 transition-all active:scale-95 -translate-y-1/2 right-4"
             @click="handlePassword"

@@ -15,6 +15,9 @@ export default {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                'black-background': "url('/img/black-background.png')"
+            },
             backgroundColor: {
                 primary: '#1976D2'
             },

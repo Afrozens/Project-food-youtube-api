@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Link } from "@inertiajs/vue3";
-import LanguageDropdown from "@/Components/LanguageDropdown.vue";
+import LanguageDropdown from "@/Components/Dropdown/LanguageDropdown.vue";
 </script>
 
 <template>
     <section
-        class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100"
+        class="min-h-screen flex flex-col sm:justify-between items-center pt-6 sm:pt-0 bg-gray-100"
     >
         <header
-            class="flex px-6 justify-between absolute top-0 items-center w-full h-16 bg-primary shadow-md"
+            class="flex px-6 justify-between items-center w-full h-16 bg-primary shadow-md"
         >
             <h3 class="text-lg text-white font-semibold capitalize">
                 Es Mediterraneo
@@ -38,7 +38,7 @@ import LanguageDropdown from "@/Components/LanguageDropdown.vue";
         </article>
 
         <footer
-            class="absolute bottom-0 text-extra-sm gap-4 px-4 bg-[#000000b8] w-full h-12 flex justify-end items-center text-white"
+            class="text-extra-sm gap-4 px-4 bg-[#000000b8] w-full h-12 flex justify-end items-center text-white"
         >
             <a href="#" class="footer-title">
                 Copyright © 2023 Es Mediterraneo all rights reserved.

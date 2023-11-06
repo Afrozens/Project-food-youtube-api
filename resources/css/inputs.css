@@ -1,0 +1,75 @@
+.vs__dropdown-toggle,
+.vs__dropdown-menu {
+    border: 0px !important;
+}
+
+.vue-tel-input {
+    height: 44.6px;
+    border-color: rgb(249 250 251) !important;
+    border: 1px !important;
+}
+
+.vue-tel-input:focus-within,
+.vue-tel-input:focus {
+    box-shadow: none !important;
+    border-color: rgb(148 163 184) !important;
+    border: 1px;
+}
+
+.vs__selected {
+    border-radius: 25px !important;
+    padding: 4px !important;
+    background-color: #1976d2 !important;
+    color: white !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+
+.vti__input {
+    background-color: #f9fafb !important;
+    border: 0px !important;
+    outline: 0px !important;
+    box-shadow: 0 0 0 calc(1px) rgb(203 213 225);
+    border-radius: 0.25rem;
+}
+
+.vti__input:focus {
+    box-shadow: 0 0 0 calc(1px) rgb(148 163 184);
+}
+
+.vti__input::placeholder {
+    font-size: 0px;
+}
+
+.vti__dropdown {
+    box-shadow: 0 0 0 calc(1px) rgb(203 213 225);
+    border-radius: 0.25rem;
+}
+
+.vue-tel-input.input-form-up .vti__input:focus,
+.vue-tel-input.input-form-up .vti__input:active {
+    border-color: rgb(148 163 184) !important;
+    border: 1px;
+    outline-color: transparent !important;
+}
+
+.dp__pointer.dp__input_readonly.dp__input.dp__input_icon_pad.dp__input_reg {
+    border: 0px;
+    background: #f9fafb !important;
+}
+
+.dp__pointer.dp__input_readonly.dp__input.dp__input_icon_pad.dp__input_reg:focus {
+    border: transparent !important;
+    outline: transparent !important;
+}
+
+.dp__pointer.dp__input_readonly.dp__input.dp__input_icon_pad.dp__input_reg:active {
+    border: transparent !important;
+    outline: transparent !important;
+}
+
+textarea:focus,
+input:focus,
+input[type]:focus {
+    outline: 0 none;
+}

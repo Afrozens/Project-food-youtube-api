@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import Dropdown from "@/Components/Dropdown.vue";
+import Dropdown from "./Dropdown.vue";
 import changeLanguage from "@/Utils/changeLanguage";
 </script>
 
@@ -9,7 +9,7 @@ import changeLanguage from "@/Utils/changeLanguage";
         <Dropdown>
             <template #trigger>
                 <div
-                    class="flex gap-1 items-center justify-center cursor-pointer hover:opacity-90 transition-all"
+                    class="flex gap-1 hover:bg-gray-100/50 p-2 rounded-lg items-center justify-center cursor-pointer hover:opacity-90 transition-all"
                 >
                     <img
                         :src="

@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('nickname');
-            $table->string('img_url');
-            $table->string('google_id')->nullable();
+            $table->string('img_url')->nullable();
+            $table->string('provider_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { ref, provide } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
-import InputError from "@/Components/InputError.vue";
-import HCaptcha from "@/Components/HCaptcha.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/ElementsPrimitive/InputError.vue";
+import HCaptcha from "@/Components/General/HCaptcha.vue";
+import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
+import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
+import ProvidersSign from "@/Components/General/ProvidersSign.vue";
 
 const form = useForm({
     name: "",
@@ -13,14 +15,22 @@ const form = useForm({
     password: "",
     password_confirmation: "",
 });
+const withTokenCaptcha = ref();
+const errorCaptcha = ref();
 
 const submit = () => {
-    form.post(route("register"), {
-        onFinish: () => {
-            form.reset("password", "password_confirmation");
-        },
-    });
+    if (withTokenCaptcha) {
+        form.post(route("register"), {
+            onFinish: () => {
+                form.reset("password", "password_confirmation");
+            },
+        });
+    } else {
+        errorCaptcha.value = "Error in hCaptcha, try again";
+    }
 };
+
+provide("withTokenCaptcha", withTokenCaptcha);
 </script>
 
 <template>
@@ -36,6 +46,7 @@ const submit = () => {
             </p>
         </div>
 
+        <ProvidersSign :label="$t('message.header.optionTwo')" />
         <form
             @submit.prevent="submit"
             class="flex flex-col gap-4 justify-center items-center"
@@ -109,6 +120,8 @@ const submit = () => {
             </div>
 
             <HCaptcha class="-my-4" />
+
+            <InputError class="mt-2" :message="errorCaptcha" />
 
             <PrimaryButton
                 class="capitalize w-full mt-4"

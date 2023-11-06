@@ -34,6 +34,18 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://mediterraneo.com/google-auth/callback',
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT_URI')
+    ],
+
+    'disqus' => [
+        'client_id' => env('DISQUS_CLIENT_ID'),
+        'client_secret' => env('DISQUS_CLIENT_SECRET'),
+        'redirect' => env('DISQUS_REDIRECT_URI')
     ],
 ];

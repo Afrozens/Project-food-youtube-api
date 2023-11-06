@@ -1,9 +1,12 @@
 import "./bootstrap";
 import "../css/app.css";
+import "vue-select/dist/vue-select.css";
+import "vue3-toastify/dist/index.css";
 
 import { createApp, h, DefineComponent } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { createI18n } from "vue-i18n";
+import VueLazyLoad from "vue3-lazyload";
 import { messages } from "./Lang/messages";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
@@ -26,10 +29,11 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(i18n)
+            .use(VueLazyLoad, {})
             .use(ZiggyVue, Ziggy)
             .mount(el);
     },
     progress: {
-        color: "#4B5563",
+        color: "#1976D2",
     },
 });

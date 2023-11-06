@@ -27,7 +27,7 @@ class User extends Authenticatable
         'email',
         'img_url',
         'password',
-        'google_id'
+        'provider_id'
     ];
 
     /**
@@ -49,4 +49,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }

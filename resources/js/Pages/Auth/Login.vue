@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { ref, provide } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
-import Checkbox from "@/Components/Checkbox.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
-import InputError from "@/Components/InputError.vue";
-import CustomCheckbox from "@/Components/CustomCheckbox.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import HCaptcha from "@/Components/HCaptcha.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/ElementsPrimitive/InputError.vue";
+import CustomCheckbox from "@/Components/ElementsPrimitive/CustomCheckbox.vue";
+import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
+import HCaptcha from "@/Components/General/HCaptcha.vue";
+import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
+import ProvidersSign from "@/Components/General/ProvidersSign.vue";
 
 defineProps<{
     canResetPassword?: boolean;
@@ -18,14 +19,22 @@ const form = useForm({
     password: "",
     remember: false,
 });
+const withTokenCaptcha = ref();
+const errorCaptcha = ref();
 
 const submit = () => {
-    form.post(route("login"), {
-        onFinish: () => {
-            form.reset("password");
-        },
-    });
+    if (withTokenCaptcha.value) {
+        form.post(route("login"), {
+            onFinish: () => {
+                form.reset("password");
+            },
+        });
+    } else {
+        errorCaptcha.value = "Error in hCaptcha, try again";
+    }
 };
+
+provide("withTokenCaptcha", withTokenCaptcha);
 </script>
 
 <template>
@@ -47,6 +56,7 @@ const submit = () => {
             </p>
         </div>
 
+        <ProvidersSign :label="$t('message.header.optionOne')" />
         <form
             @submit.prevent="submit"
             class="flex flex-col justify-center items-center"
@@ -95,6 +105,8 @@ const submit = () => {
             </div>
 
             <HCaptcha />
+
+            <InputError class="mt-2" :message="errorCaptcha" />
 
             <PrimaryButton
                 :class="{ 'opacity-25': form.processing }"

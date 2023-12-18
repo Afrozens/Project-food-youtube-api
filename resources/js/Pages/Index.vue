@@ -1,11 +1,19 @@
 <script lang="ts" setup>
+import { onMounted } from "vue";
 import FoodVariantIcon from "vue-material-design-icons/FoodVariant.vue";
 import FoodVariantOffIcon from "vue-material-design-icons/FoodVariantOff.vue";
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
-import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 import CustomSelect from "@/Components/ElementsPrimitive/CustomSelect.vue";
+
+const props = defineProps({
+    tags: Object,
+});
+
+onMounted(() => {
+    console.log(props.tags.data);
+});
 </script>
 
 <template>
@@ -23,7 +31,7 @@ import CustomSelect from "@/Components/ElementsPrimitive/CustomSelect.vue";
                         <FoodVariantIcon :size="30" fillColor="#4BB543" />
                     </div>
                     <CustomSelect
-                        :options="['admin', 'user', 'super admin']"
+                        :options="tags.data[name]"
                         label="¿Qué debe contener?"
                         title="yes_ingredient"
                         :is-required="true"

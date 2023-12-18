@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Application;
@@ -18,13 +19,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/', function () {
-    return Inertia::render('Index');
-})->middleware(['auth', 'verified'])->name('index');
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
 ;
 
 Route::get('google-auth/redirect', function () {
@@ -67,30 +64,11 @@ Route::get('facebook-auth/callback', function () {
     return redirect('/dashboard');
 });
 
-Route::get('disqus-auth/redirect', function () {
-    return Socialite::driver('disqus')->redirect();
-});
-
-Route::get('disqus-auth/callback', function () {
-    $user_disqus = Socialite::driver('disqus')->stateless()->user();
-
-    $user = User::updateOrCreate([
-        'provider_id' => $user_disqus->id,
-    ], [
-        'name' => $user_disqus->name,
-        'email' => $user_disqus->email,
-        'nickname' => $user_disqus->nickname ?? '',
-        'img_url' => $user_disqus->avatar ?? null,
-    ]);
-
-    Auth::login($user);
-    return redirect('/dashboard');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 require __DIR__ . '/auth.php';

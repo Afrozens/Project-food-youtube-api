@@ -19,7 +19,7 @@ onMounted(() => {
 
 <template>
     <section
-        class="min-h-screen flex flex-col sm:justify-between items-center pt-6 sm:pt-0 bg-gray-100"
+        class="min-h-screen flex flex-col sm:justify-between items-center bg-gray-100"
     >
         <header
             v-if="dataUser"

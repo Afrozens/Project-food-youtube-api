@@ -57,6 +57,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
         </div>
 
         <ProvidersSign :label="$t('message.header.optionOne')" />
+        <hr class="h-px bg-gray-300 mb-4 border-0 col-span-2 opacity-80" />
         <form
             @submit.prevent="submit"
             class="flex flex-col justify-center items-center"
@@ -95,7 +96,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
 
             <div class="block relative self-start">
                 <label class="flex items-center relative w-fit">
-                    <CustomCheckbox />
+                    <CustomCheckbox :checked="form.remember" />
                     <span
                         class="ml-2 text-sm text-gray-600 cursor-pointer transition-all hover:opacity-90 hover:underline"
                     >

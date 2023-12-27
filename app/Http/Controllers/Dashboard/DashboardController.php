@@ -19,10 +19,10 @@ class DashboardController extends Controller
     {
         $user = $request->user();
         if ($user->img_url)
-            Storage::delete($user->img_url, 'profile');
-        $img_path = $request->image->store('users', 'profile');
+            Storage::delete($user->img_url);
+        $img_path = $request->image->store('profile/users', 'public');
         $user->fill([
-            'img_url' => $img_path
+            'img_url' => Storage::url($img_path)
         ]);
         $user->save();
         $message = 'Su imagen ha sido actualizada.';

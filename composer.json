@@ -14,6 +14,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.9",
         "laravel/tinker": "^2.8",
+        "laraveles/spanish": "^1.5",
         "socialiteproviders/disqus": "^4.1",
         "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/zoho": "^4.1",

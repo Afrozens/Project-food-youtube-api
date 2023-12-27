@@ -13,7 +13,7 @@ const dataUser = ref();
 
 onMounted(() => {
     if (props.auth) {
-        dataUser.value = props.auth.user;
+        dataUser.value = props.auth.data;
     }
 });
 </script>
@@ -43,7 +43,7 @@ onMounted(() => {
                             <AvatarGenerate
                                 :is-rounded="true"
                                 size="40"
-                                :src="dataUser.img_url ?? undefined"
+                                :src="dataUser.img_path ?? undefined"
                                 :name="dataUser.name"
                                 class="w-10 h-10"
                             />

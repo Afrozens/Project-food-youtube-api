@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import "vue-advanced-cropper/dist/style.css";
 import { ref, onMounted, onUnmounted, watch, reactive } from "vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
 import { Cropper } from "vue-advanced-cropper";
 import InputError from "../ElementsPrimitive/InputError.vue";
 import CameraFlipIcon from "vue-material-design-icons/CameraFlip.vue";
@@ -18,6 +18,8 @@ const props = withDefaults(
         closeable: true,
     }
 );
+
+const { props: propsAuth } = usePage();
 
 const form = useForm({
     image: null as File | null,
@@ -122,7 +124,7 @@ onUnmounted(() => {
         <div
             v-show="show"
             :disabled="isLoading"
-            @click="!isLoading && close"
+            @click="close"
             class="fixed top-0 left-0 z-10 w-full h-full bg-gray-900 opacity-50"
         />
         <Transition
@@ -135,7 +137,7 @@ onUnmounted(() => {
         >
             <div
                 v-show="show"
-                class="h-[478px] z-20 w-full px-4 py-5 max-w-lg absolute top-36 left-1/2 -translate-x-1/2"
+                class="z-20 w-full px-4 py-5 max-w-lg absolute top-36 left-1/2 -translate-x-1/2"
             >
                 <header
                     class="flex justify-start rounded-t-md items-center gap-4 px-4 py-1 h-[56px] w-full bg-primary"
@@ -148,9 +150,16 @@ onUnmounted(() => {
                 <div
                     class="p-4 gap-8 items-start justify-between flex flex-col h-full bg-white rounded-b-md w-full"
                 >
-                    <div class="w-full flex-grow h-64 self-start">
+                    <div
+                        class="w-full flex-grow self-start"
+                        :class="
+                            previewData || propsAuth.auth.data.img_path
+                                ? 'h-64'
+                                : 'h-6'
+                        "
+                    >
                         <Cropper
-                            :src="previewData"
+                            :src="previewData || propsAuth.auth.data.img_path"
                             alt="image of profile user"
                             class="bg-cover w-full h-full"
                             @change="changeImage"

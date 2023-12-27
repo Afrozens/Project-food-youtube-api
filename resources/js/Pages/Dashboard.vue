@@ -18,14 +18,14 @@ const dataUser = ref();
 const showChangeImage = ref<boolean>(false);
 const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
-const user = usePage().props.auth.user;
+const user = usePage().props.auth.data;
 
 const closeChangeImage = () => {
     showChangeImage.value = false;
 };
 onMounted(() => {
     if (props.auth) {
-        dataUser.value = props.auth.user;
+        dataUser.value = props.auth.data;
     }
 });
 
@@ -106,11 +106,11 @@ const handleSubmitPassword = () => {
                     class="child-button transition-all"
                     :size="120"
                     fillColor="222222"
-                    v-if="!dataUser.img_url"
+                    v-if="!dataUser.img_path"
                 />
                 <img
                     v-else
-                    :src="dataUser.img_url"
+                    :src="dataUser.img_path"
                     alt="profile image of user"
                     class="w-full h-full rounded-full bg-cover"
                 />

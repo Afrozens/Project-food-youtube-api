@@ -19,22 +19,14 @@ const form = useForm({
     password: "",
     remember: false,
 });
-const withTokenCaptcha = ref();
-const errorCaptcha = ref();
 
 const submit = () => {
-    if (withTokenCaptcha.value) {
-        form.post(route("login"), {
-            onFinish: () => {
-                form.reset("password");
-            },
-        });
-    } else {
-        errorCaptcha.value = "Error in hCaptcha, try again";
-    }
+    form.post(route("login"), {
+        onFinish: () => {
+            form.reset("password");
+        },
+    });
 };
-
-provide("withTokenCaptcha", withTokenCaptcha);
 </script>
 
 <template>
@@ -105,10 +97,6 @@ provide("withTokenCaptcha", withTokenCaptcha);
                 </label>
             </div>
 
-            <HCaptcha />
-
-            <InputError class="mt-2" :message="errorCaptcha" />
-
             <PrimaryButton
                 :class="{ 'opacity-25': form.processing }"
                 class="mb-2 w-full mt-4 capitalize"
@@ -116,17 +104,6 @@ provide("withTokenCaptcha", withTokenCaptcha);
             >
                 {{ $t("message.header.optionOne") }}
             </PrimaryButton>
-
-            <small class="text-extra-sm font-light px-4 text-center">
-                For added security, you must complete the verification
-                <a
-                    href="https://www.hcaptcha.com/"
-                    class="font-semibold hover:opacity-80 transition-all hover:underline"
-                >
-                    hCaptcha
-                </a>
-                before logging in.
-            </small>
         </form>
         <div class="flex gap-2 items-center justify-center mt-4">
             <h4 class="text-extra-md">{{ $t("message.login.dont") }}</h4>

@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, watch } from "vue";
+import "vue-advanced-cropper/dist/style.css";
+import { ref, onMounted, onUnmounted, watch, reactive } from "vue";
+import { useForm } from "@inertiajs/vue3";
+import { Cropper } from "vue-advanced-cropper";
+import InputError from "../ElementsPrimitive/InputError.vue";
 import CameraFlipIcon from "vue-material-design-icons/CameraFlip.vue";
 import CameraIcon from "vue-material-design-icons/Camera.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
@@ -15,7 +19,72 @@ const props = withDefaults(
     }
 );
 
+const form = useForm({
+    image: null as File | null,
+});
+
 const emit = defineEmits(["close"]);
+
+const isLoading = ref(false);
+const fileValue = ref<File>();
+const isError = ref("");
+const previewData = ref("");
+const allowedTypes = ["image/jpeg", "image/png", "image/bmp", "image/webp"];
+
+const handleChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files[0];
+    console.log(file, "pepe");
+    if (file) {
+        if (allowedTypes.includes(file.type)) {
+            fileValue.value = file;
+            const reader = new FileReader();
+
+            reader.onload = (e: ProgressEvent<FileReader>) => {
+                const path = e.target?.result as string;
+                previewData.value = path;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            isError.value = "The image size exceeds the set size";
+        }
+    }
+};
+
+const changeImage = ({ coordinates, canvas }) => {
+    let dataURL = canvas.toDataURL("image/png");
+    let blobBin = atob(dataURL.split(",")[1]);
+    let array = [];
+    for (let i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i));
+    }
+    let blob = new Blob([new Uint8Array(array)], { type: "image/png" });
+    let url = URL.createObjectURL(blob);
+    let name = `${url.split("/")[3]}.${blob.type.split("/")[1]}`;
+    form.image = new File([blob], `${name}`);
+};
+
+const handleSend = () => {
+    let path = route("dashboard.image");
+
+    form.transform((data) => ({
+        ...data,
+        _method: "put",
+    }));
+
+    form.post(path, {
+        preserveState: (page) => Object.keys(page.props.errors).length,
+        onStart: () => {
+            isLoading.value = true;
+        },
+        onError: () => {
+            isLoading.value = false;
+        },
+        onFinish: () => {
+            isLoading.value = false;
+        },
+    });
+};
 
 watch(
     () => props.show,
@@ -52,7 +121,8 @@ onUnmounted(() => {
     <Teleport to="body">
         <div
             v-show="show"
-            @click="close"
+            :disabled="isLoading"
+            @click="!isLoading && close"
             class="fixed top-0 left-0 z-10 w-full h-full bg-gray-900 opacity-50"
         />
         <Transition
@@ -71,39 +141,65 @@ onUnmounted(() => {
                     class="flex justify-start rounded-t-md items-center gap-4 px-4 py-1 h-[56px] w-full bg-primary"
                 >
                     <CameraFlipIcon :size="40" fillColor="#ffffff" />
-
                     <span class="text-white text-lg capitalize"
                         >Cambiar imagen</span
                     >
                 </header>
                 <div
-                    class="p-4 gap-4 justify-end items-start flex flex-col h-full bg-white rounded-b-md w-full"
+                    class="p-4 gap-8 items-start justify-between flex flex-col h-full bg-white rounded-b-md w-full"
                 >
-                    <!-- <div class="w-full h-72">
-                        <img
-                            :src="src"
+                    <div class="w-full flex-grow h-64 self-start">
+                        <Cropper
+                            :src="previewData"
                             alt="image of profile user"
                             class="bg-cover w-full h-full"
+                            @change="changeImage"
+                            :stencil-props="{
+                                aspectRatio: 10 / 12,
+                            }"
                         />
-                    </div> -->
-                    <label
-                        for="changeImage"
-                        class="flex transition-all hover:opacity-80 items-center gap-2 w-full"
-                    >
-                        <CameraIcon fillColor="#6B7280" class="self-start" />
-                        <div class="w-full flex-grow">
-                            <span class="cursor-text text-lg text-gray-500">
-                                Seleccione una imagen
-                            </span>
-                            <hr
-                                class="h-px bg-gray-500 w-full border-0 col-span-2"
+                    </div>
+                    <div class="w-full flex flex-col gap-2 mt-4">
+                        <label
+                            for="changeImage"
+                            @click.stop="isError = ''"
+                            class="flex cursor-pointer transition-all hover:opacity-80 items-center gap-2 w-full"
+                        >
+                            <CameraIcon
+                                fillColor="#6B7280"
+                                class="self-start"
                             />
-                        </div>
-                        <input type="file" id="changeImage" class="w-0 h-0" />
-                    </label>
-                    <TertiaryButton class="m-0 bg-green-500 w-full">
-                        Actualizar
-                    </TertiaryButton>
+                            <div class="w-full flex-grow">
+                                <span
+                                    class="cursor-pointer text-lg text-gray-500"
+                                >
+                                    {{
+                                        fileValue?.name ??
+                                        "Seleccione una imagen"
+                                    }}
+                                </span>
+                                <hr
+                                    class="h-px bg-gray-500 w-full border-0 col-span-2"
+                                />
+                            </div>
+                            <input
+                                type="file"
+                                id="changeImage"
+                                class="w-0 h-0"
+                                @change="handleChange"
+                                accept="image/png, image/jpeg, image/bmp, image/webp"
+                            />
+                        </label>
+                        <InputError class="mt-2" :message="isError" />
+                        <TertiaryButton
+                            :disabled="isLoading"
+                            :class="{ 'opacity-25': isLoading }"
+                            @click.prevent="handleSend"
+                            class="m-0 bg-green-500 w-full"
+                        >
+                            Actualizar
+                        </TertiaryButton>
+                    </div>
                 </div>
             </div>
         </Transition>

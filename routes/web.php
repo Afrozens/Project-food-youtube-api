@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Video\VideoController;
+use App\Http\Controllers\Video\CommentController;
+use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\ProfileController;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +21,19 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
-;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::prefix('/videos')->name('videos.')->group(function () {
+    Route::get('/', [VideoController::class, 'index'])->name('index');
+    Route::get('/{video:id}', [VideoController::class, 'show'])->name('show');
+
+    Route::prefix('/{video:id}/comments')->name('comments.')->group(function () {
+        Route::get('/', [CommentController::class, 'index'])->name('index');
+    });
+});
 
 Route::get('google-auth/redirect', function () {
     return Socialite::driver('google')->redirect();
@@ -69,6 +80,32 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+    Route::prefix('/videos/{video:id}/comments')->name('videos.comments.')->group(function () {
+        Route::post('/', [CommentController::class, 'store'])->name('store');
+        Route::put('/{comment:id}', [CommentController::class, 'update'])->name('update');
+        Route::delete('/{comment:id}', [CommentController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/messages')->name('messages.')->group(function () {
+        Route::get('/', [MessageController::class, 'index'])->name('index');
+        Route::get('/{id}/{userreceiver}', [MessageController::class, 'inbox_user'])->name('inbox_user');
+        Route::post('/', [MessageController::class, 'store'])->name('store');
+        Route::put('/{id}', [MessageController::class, 'update'])->name('update');
+        Route::delete('/{id}', [MessageController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::resource("chats", ChatController::class)->parameters(["chats" => "id"]);
+
+
+    Route::prefix('/dashboard')
+        ->name('dashboard.')
+        ->group(base_path('routes/web/dashboard.php'));
+
+    Route::prefix('/admin')
+        ->middleware(['role:admin|Super Admin'])
+        ->name('admin.')
+        ->group(base_path('routes/web/admin.php'));
 });
 
 require __DIR__ . '/auth.php';

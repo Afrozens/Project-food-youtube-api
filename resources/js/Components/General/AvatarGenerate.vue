@@ -16,6 +16,7 @@ const props = withDefaults(
     }
 );
 
+const withError = ref(false);
 const isHidden = ref(false);
 
 const lazyOptions = ref({
@@ -23,6 +24,9 @@ const lazyOptions = ref({
     lifecycle: {
         loading: () => {
             isHidden.value = true;
+        },
+        error: () => {
+            withError.value = true;
         },
         loaded: () => {
             isHidden.value = false;
@@ -64,7 +68,7 @@ if (nameSplit.length === 1) {
 
 <template>
     <div
-        v-if="src"
+        v-if="src && !withError"
         :class="size && `w-[${size}px] h-[${size}px]`"
         class="self-start parent transition rounded-md select-none relative"
     >

@@ -19,7 +19,7 @@ const i18n = createI18n({
 });
 
 createInertiaApp({
-    title: (title) => `${appName} - ${title}`,
+    title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,

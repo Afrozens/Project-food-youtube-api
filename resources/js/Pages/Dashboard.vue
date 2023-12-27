@@ -11,6 +11,7 @@ import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 import TertiaryButton from "@/Components/ElementsPrimitive/TertiaryButton.vue";
 import ModalImage from "@/Components/Modals/ModalImage.vue";
+import InputError from "@/Components/ElementsPrimitive/InputError.vue";
 
 const { props } = usePage();
 const dataUser = ref();
@@ -97,6 +98,7 @@ const handleSubmitPassword = () => {
             v-if="dataUser"
             class="py-4 w-full bg-cover flex flex-col bg-fixed px-8 lg:px-24 gap-8 bg-no-repeat bg-center bg-black-background min-h-screen"
         >
+            <!-- Change image profile -->
             <div
                 class="mx-auto parent-button relative flex hover:bg-[#202020b2] transition-all items-center justify-center rounded-full w-[150px] h-[150px] bg-transparent shadow-2xl"
             >
@@ -121,6 +123,7 @@ const handleSubmitPassword = () => {
             </div>
             <div class="flex flex-col gap-5 lg:flex-row justify-between">
                 <div class="bg-white h-[406px] w-full lg:w-[470px] rounded-md">
+                    <!-- Update data profile -->
                     <form
                         @submit.prevent="handleSubmitInformation"
                         class="w-full h-full flex flex-col justify-end p-4"
@@ -185,6 +188,7 @@ const handleSubmitPassword = () => {
                     </form>
                 </div>
                 <div class="bg-white h-[406px] w-full lg:w-[470px] rounded-md">
+                    <!-- update password -->
                     <form
                         @submit.prevent="handleSubmitPassword"
                         class="w-full h-full flex flex-col justify-end p-4"
@@ -266,16 +270,14 @@ const handleSubmitPassword = () => {
                     </h4>
                 </div>
                 <div class="h-[150px] w-full bg-white rounded-md p-4">
-                    <form action="#" class="w-full h-full">
+                    <form class="w-full h-full">
                         <div class="relative mb-8 w-full">
                             <TextInput
-                                :label="'comments'"
+                                :label="'Comments'"
                                 :is-required="true"
                                 type="text"
                                 autofocus
                             />
-
-                            <!-- <InputError class="mt-2" :message="form.errors.email" /> -->
                         </div>
                         <div
                             class="self-end w-full flex gap-4 justify-center items-center"

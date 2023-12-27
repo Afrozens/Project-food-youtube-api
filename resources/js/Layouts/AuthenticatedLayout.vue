@@ -10,6 +10,7 @@ import { usePage, Link } from "@inertiajs/vue3";
 
 const { props } = usePage();
 const dataUser = ref();
+
 onMounted(() => {
     if (props.auth) {
         dataUser.value = props.auth.user;
@@ -51,13 +52,15 @@ onMounted(() => {
                     <template #content>
                         <div class="w-48 bg-white rounded-lg">
                             <div class="flex gap-2 p-4 justify-between">
-                                <AvatarGenerate
-                                    :is-rounded="true"
-                                    size="40"
-                                    :src="dataUser.img_url ?? undefined"
-                                    :name="dataUser.name"
-                                    class="w-10 h-10 flex-grow"
-                                />
+                                <div class="rounded-full h-10 w-10">
+                                    <AvatarGenerate
+                                        :is-rounded="true"
+                                        size="40"
+                                        :src="dataUser.img_url ?? undefined"
+                                        :name="dataUser.name"
+                                        class="w-10 h-10 flex-grow"
+                                    />
+                                </div>
                                 <div
                                     class="flex flex-col flex-grow justify-between"
                                 >

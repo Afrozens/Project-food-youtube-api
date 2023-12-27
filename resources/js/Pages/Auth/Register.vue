@@ -52,30 +52,32 @@ provide("withTokenCaptcha", withTokenCaptcha);
             @submit.prevent="submit"
             class="flex flex-col gap-4 justify-center items-center"
         >
-            <div class="w-full">
-                <TextInput
-                    id="name"
-                    type="text"
-                    :label="$t('message.components.name')"
-                    :is-required="true"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                />
+            <div class="w-full flex-col md:flex-row flex gap-4 items-center">
+                <div class="w-full">
+                    <TextInput
+                        id="name"
+                        type="text"
+                        :label="$t('message.components.name')"
+                        :is-required="true"
+                        class="mt-1 block w-full"
+                        v-model="form.name"
+                    />
 
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
+                    <InputError class="mt-2" :message="form.errors.name" />
+                </div>
 
-            <div class="w-full">
-                <TextInput
-                    id="nickname"
-                    type="text"
-                    :label="$t('message.components.nickname')"
-                    :is-required="true"
-                    class="mt-1 block w-full"
-                    v-model="form.nickname"
-                />
+                <div class="w-full">
+                    <TextInput
+                        id="nickname"
+                        type="text"
+                        :label="$t('message.components.nickname')"
+                        :is-required="true"
+                        class="mt-1 block w-full"
+                        v-model="form.nickname"
+                    />
 
-                <InputError class="mt-2" :message="form.errors.nickname" />
+                    <InputError class="mt-2" :message="form.errors.nickname" />
+                </div>
             </div>
 
             <div class="w-full">

@@ -7,6 +7,7 @@ import InputError from "../ElementsPrimitive/InputError.vue";
 import CameraFlipIcon from "vue-material-design-icons/CameraFlip.vue";
 import CameraIcon from "vue-material-design-icons/Camera.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
+import Loader from "../General/Loader.vue";
 
 const props = withDefaults(
     defineProps<{
@@ -148,23 +149,19 @@ onUnmounted(() => {
                     >
                 </header>
                 <div
-                    class="p-4 gap-8 items-start justify-between flex flex-col h-full bg-white rounded-b-md w-full"
+                    class="p-4 items-start justify-between flex flex-col h-full bg-white rounded-b-md w-full"
                 >
                     <div
                         class="w-full flex-grow self-start"
-                        :class="
-                            previewData || propsAuth.auth.data.img_path
-                                ? 'h-64'
-                                : 'h-6'
-                        "
+                        :class="previewData ? 'h-72' : 'h-6'"
                     >
                         <Cropper
-                            :src="previewData || propsAuth.auth.data.img_path"
+                            :src="previewData"
                             alt="image of profile user"
                             class="bg-cover w-full h-full"
                             @change="changeImage"
                             :stencil-props="{
-                                aspectRatio: 10 / 12,
+                                aspectRatio: 12 / 12,
                             }"
                         />
                     </div>
@@ -175,12 +172,17 @@ onUnmounted(() => {
                             class="flex cursor-pointer transition-all hover:opacity-80 items-center gap-2 w-full"
                         >
                             <CameraIcon
-                                fillColor="#6B7280"
-                                class="self-start"
+                                :fillColor="fileValue ? '#1976D2' : '#6B7280'"
+                                class="self-start trasition-all"
                             />
                             <div class="w-full flex-grow">
                                 <span
-                                    class="cursor-pointer text-lg text-gray-500"
+                                    class="cursor-pointer text-lg trasition-all"
+                                    :class="
+                                        fileValue
+                                            ? 'text-primary'
+                                            : 'text-gray-500'
+                                    "
                                 >
                                     {{
                                         fileValue?.name ??
@@ -188,7 +190,10 @@ onUnmounted(() => {
                                     }}
                                 </span>
                                 <hr
-                                    class="h-px bg-gray-500 w-full border-0 col-span-2"
+                                    class="h-px bg-gray-500 w-full border-0 col-span-2 trasition-all"
+                                    :class="
+                                        fileValue ? 'bg-primary' : 'bg-gray-500'
+                                    "
                                 />
                             </div>
                             <input
@@ -202,11 +207,12 @@ onUnmounted(() => {
                         <InputError class="mt-2" :message="isError" />
                         <TertiaryButton
                             :disabled="isLoading"
-                            :class="{ 'opacity-25': isLoading }"
+                            :class="{ 'bg-gray-200': isLoading }"
                             @click.prevent="handleSend"
-                            class="m-0 bg-green-500 w-full"
+                            class="m-0 bg-green-500 w-full text-center"
                         >
-                            Actualizar
+                            <Loader v-show="isLoading" />
+                            <span v-show="!isLoading">Actualizar</span>
                         </TertiaryButton>
                     </div>
                 </div>

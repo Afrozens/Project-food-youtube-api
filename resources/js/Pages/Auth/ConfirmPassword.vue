@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import GuestLayout from "@/Layouts/GuestLayout.vue";
-import InputError from "@/Components/ElementsPrimitive/InputError.vue";
-import InputLabel from "@/Components/ElementsPrimitive/InputLabel.vue";
-import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
-import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
+import FormField from "@/Components/General/FormField.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 
 const form = useForm({
     password: "",
@@ -29,19 +27,14 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                    autofocus
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+            <FormField
+                id="password"
+                type="password"
+                :is-required="true"
+                autocomplete="current-password"
+                v-model="form.password"
+                :error="form.errors.password"
+            />
 
             <div class="flex justify-end mt-4">
                 <PrimaryButton

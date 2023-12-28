@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, provide } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
+import FormField from "@/Components/General/FormField.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import InputError from "@/Components/ElementsPrimitive/InputError.vue";
 import HCaptcha from "@/Components/General/HCaptcha.vue";
@@ -53,74 +54,52 @@ provide("withTokenCaptcha", withTokenCaptcha);
             class="flex flex-col gap-4 justify-center items-center"
         >
             <div class="w-full flex-col md:flex-row flex gap-4 items-center">
-                <div class="w-full">
-                    <TextInput
-                        id="name"
-                        type="text"
-                        :label="$t('message.components.name')"
-                        :is-required="true"
-                        class="mt-1 block w-full"
-                        v-model="form.name"
-                    />
-
-                    <InputError class="mt-2" :message="form.errors.name" />
-                </div>
-
-                <div class="w-full">
-                    <TextInput
-                        id="nickname"
-                        type="text"
-                        :label="$t('message.components.nickname')"
-                        :is-required="true"
-                        class="mt-1 block w-full"
-                        v-model="form.nickname"
-                    />
-
-                    <InputError class="mt-2" :message="form.errors.nickname" />
-                </div>
-            </div>
-
-            <div class="w-full">
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    :label="$t('message.components.email')"
+                <FormField
+                    id="name"
+                    type="text"
+                    :label="$t('message.components.name')"
                     :is-required="true"
+                    v-model="form.name"
+                    :error="form.errors.name"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="w-full">
-                <TextInput
-                    id="password"
-                    type="password"
-                    :label="$t('message.components.password')"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
+                <FormField
+                    id="nickname"
+                    type="text"
+                    :label="$t('message.components.nickname')"
                     :is-required="true"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="w-full -mb-2">
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    :label="$t('message.components.confirmPassword')"
-                    :is-required="true"
-                />
-
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
+                    v-model="form.nickname"
+                    :error="form.errors.nickname"
                 />
             </div>
+
+            <FormField
+                id="email"
+                type="email"
+                v-model="form.email"
+                :label="$t('message.components.email')"
+                :is-required="true"
+                :error="form.errors.email"
+            />
+
+            <FormField
+                id="password"
+                type="password"
+                :label="$t('message.components.password')"
+                v-model="form.password"
+                :is-required="true"
+                :error="form.errors.password"
+            />
+
+            <FormField
+                class="-mb-2"
+                id="password_confirmation"
+                type="password"
+                v-model="form.password_confirmation"
+                :label="$t('message.components.confirmPassword')"
+                :is-required="true"
+                :error="form.errors.password_confirmation"
+            />
 
             <HCaptcha class="-my-4" />
 

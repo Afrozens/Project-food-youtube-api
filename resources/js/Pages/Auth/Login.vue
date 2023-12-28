@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { ref, provide } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
-import InputError from "@/Components/ElementsPrimitive/InputError.vue";
 import CustomCheckbox from "@/Components/ElementsPrimitive/CustomCheckbox.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
-import HCaptcha from "@/Components/General/HCaptcha.vue";
-import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
+import FormField from "@/Components/General/FormField.vue";
 import ProvidersSign from "@/Components/General/ProvidersSign.vue";
 
 defineProps<{
@@ -54,30 +51,25 @@ const submit = () => {
             @submit.prevent="submit"
             class="flex flex-col justify-center items-center"
         >
-            <div class="relative mb-2 w-full">
-                <TextInput
-                    id="email"
-                    :label="$t('message.components.email')"
-                    :is-required="true"
-                    type="email"
-                    v-model="form.email"
-                    autofocus
-                />
+            <FormField
+                id="email"
+                :label="$t('message.components.email')"
+                :is-required="true"
+                type="email"
+                v-model="form.email"
+                :error="form.errors.email"
+            />
 
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+            <FormField
+                class="mt-4 mb-2"
+                id="password"
+                :label="$t('message.components.password')"
+                type="password"
+                :is-required="true"
+                v-model="form.password"
+                :error="form.errors.password"
+            />
 
-            <div class="mt-4 mb-2 w-full">
-                <TextInput
-                    id="password"
-                    :label="$t('message.components.password')"
-                    type="password"
-                    :is-required="true"
-                    v-model="form.password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
             <Link
                 v-if="canResetPassword"
                 :href="route('password.request')"

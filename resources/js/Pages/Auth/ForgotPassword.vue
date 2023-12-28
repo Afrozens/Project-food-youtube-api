@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import GuestLayout from "@/Layouts/GuestLayout.vue";
-import InputError from "../../Components/ElementsPrimitive/InputError.vue";
-import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
-import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
 import { Head, useForm, Link } from "@inertiajs/vue3";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
+import FormField from "@/Components/General/FormField.vue";
 
 defineProps<{
     status?: string;
@@ -37,19 +36,14 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit" class="flex flex-col gap-4 mb-4">
-            <div>
-                <TextInput
-                    id="email"
-                    type="email"
-                    label="Email"
-                    :is-required="true"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+            <FormField
+                id="email"
+                type="email"
+                label="Email"
+                :is-required="true"
+                v-model="form.email"
+                :error="form.errors.email"
+            />
 
             <PrimaryButton
                 :class="{ 'opacity-25': form.processing }"

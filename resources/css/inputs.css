@@ -68,10 +68,6 @@
     outline: transparent !important;
 }
 
-.v-select.vs--multiple.vs--searchable {
-    height: 48.22px !important;
-}
-
 textarea:focus,
 input:focus,
 input[type]:focus {

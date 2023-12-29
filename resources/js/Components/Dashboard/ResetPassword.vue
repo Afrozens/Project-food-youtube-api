@@ -91,7 +91,7 @@ const handleSubmitPassword = () => {
             <PrimaryButton
                 type="submit"
                 :class="{ 'bg-gray-200': formPassword.processing }"
-                class="mb-2 self-end w-full mt-4 capitalize text-center"
+                class="mb-2 bg-primary self-end w-full mt-4 capitalize text-center"
                 :disabled="formPassword.processing"
             >
                 <Loader v-show="formPassword.processing" />

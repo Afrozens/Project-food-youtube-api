@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import HomeIcon from "vue-material-design-icons/Home.vue";
 import ViewDashboardIcon from "vue-material-design-icons/ViewDashboard.vue";
 import LogoutIcon from "vue-material-design-icons/Logout.vue";
@@ -9,11 +9,10 @@ import Dropdown from "@/Components/Dropdown/Dropdown.vue";
 import { usePage, Link } from "@inertiajs/vue3";
 
 const { props } = usePage();
-const dataUser = ref();
 
-onMounted(() => {
+const dataUser = computed(() => {
     if (props.auth) {
-        dataUser.value = props.auth.data;
+        return props.auth.data;
     }
 });
 </script>
@@ -64,9 +63,10 @@ onMounted(() => {
                                 <div
                                     class="flex flex-col flex-grow justify-between"
                                 >
-                                    <span class="text-minus-base font-medium">{{
-                                        dataUser.name
-                                    }}</span>
+                                    <span
+                                        class="text-minus-base break-all font-medium"
+                                        >{{ dataUser.name }}</span
+                                    >
                                     <span
                                         class="text-extra-md capitalize font-light"
                                         >{{
@@ -83,7 +83,7 @@ onMounted(() => {
                                     <Link
                                         :href="route('dashboard')"
                                         as="button"
-                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-4 p-4 transition-all"
+                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-2 p-2 transition-all"
                                     >
                                         <ViewDashboardIcon />
                                         <span
@@ -97,7 +97,7 @@ onMounted(() => {
                                     <Link
                                         :href="route('index')"
                                         as="button"
-                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-4 p-4 transition-all"
+                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-2 p-2 transition-all"
                                     >
                                         <HomeIcon />
                                         <span
@@ -112,7 +112,7 @@ onMounted(() => {
                                         :href="route('logout')"
                                         method="post"
                                         as="button"
-                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-4 p-4 transition-all"
+                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-2 p-2 transition-all"
                                     >
                                         <LogoutIcon />
                                         <span

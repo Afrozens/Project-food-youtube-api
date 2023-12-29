@@ -68,7 +68,7 @@ const changeImage = ({ coordinates, canvas }) => {
 };
 
 const handleSend = () => {
-    let path = route("dashboard.image");
+    const path = route("dashboard.image");
 
     form.transform((data) => ({
         ...data,

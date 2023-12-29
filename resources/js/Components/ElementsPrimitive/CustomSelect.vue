@@ -4,6 +4,7 @@ import vSelect from "vue-select";
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
 import CloseCircleIcon from "vue-material-design-icons/CloseCircle.vue";
 import CustomCheckbox from "./CustomCheckbox.vue";
+import { HasOrExcept } from "@/types/video";
 
 interface optionSelect {
     id: number;
@@ -44,9 +45,19 @@ vSelect.props.components.default = () => ({
     <div class="relative w-full">
         <vSelect
             :value="modelValue"
-            @option:selected="$emit('update:modelValue', data.selectedValue)"
-            @option:deselected="$emit('update:modelValue', data.selectedValue)"
-            :options="options && options.map((option) => option.name)"
+            @option:selected="
+                $emit(
+                    'update:modelValue',
+                    data.selectedValue.map((value: HasOrExcept) => value.id)
+                )
+            "
+            @option:deselected="
+                $emit(
+                    'update:modelValue',
+                    data.selectedValue.map((value: HasOrExcept) => value.id)
+                )
+            "
+            :options="options && options.map((option) => option)"
             :label="title"
             class="peer input-form-up pl-12 capitalize"
             :multiple="isMultiple"
@@ -62,9 +73,7 @@ vSelect.props.components.default = () => ({
                     <CustomCheckbox
                         class="checkbox-parent"
                         :checked="
-                            modelValue
-                                ? modelValue?.includes(option.name)
-                                : false
+                            modelValue ? modelValue?.includes(option.id) : false
                         "
                     />
                     <span class="ml-2 text-minus-base font-medium capitalize">{{

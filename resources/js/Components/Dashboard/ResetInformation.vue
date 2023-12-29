@@ -80,10 +80,10 @@ const handleSubmitInformation = () => {
             />
 
             <PrimaryButton
+                class="mb-2 bg-primary self-end w-full mt-4 capitalize"
                 :class="{
-                    'bg-gray-200': formInformation.processing,
+                    'bg-gray-200 opacity-25': formInformation.processing,
                 }"
-                class="mb-2 self-end w-full mt-4 capitalize"
                 :disabled="formInformation.processing"
             >
                 <Loader v-show="formInformation.processing" />

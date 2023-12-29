@@ -8,8 +8,14 @@ import AccountIcon from "vue-material-design-icons/Account.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import ChatInDashboard from "@/Components/Dashboard/ChatInDashboard.vue";
 import ModalImage from "@/Components/Modals/ModalImage.vue";
+import { ChatContent } from "@/types/chat";
 
 const { props } = usePage();
+
+const propsDefine = defineProps({
+    chatCollection: Array<ChatContent>,
+});
+
 const dataUser = ref();
 const showChangeImage = ref<boolean>(false);
 
@@ -20,6 +26,7 @@ onMounted(() => {
     if (props.auth) {
         dataUser.value = props.auth.data;
     }
+    console.log(propsDefine.chatCollection, "pepe");
 });
 </script>
 
@@ -60,7 +67,10 @@ onMounted(() => {
                 <ResetPassword />
             </div>
             <!-- Chat in comments -->
-            <ChatInDashboard />
+            <ChatInDashboard
+                v-if="propsDefine.chatCollection"
+                :data-chat="(propsDefine.chatCollection.data as ChatContent[])"
+            />
         </article>
         <!-- Modal for change image profile -->
         <ModalImage :show="showChangeImage" @close="closeChangeImage" />

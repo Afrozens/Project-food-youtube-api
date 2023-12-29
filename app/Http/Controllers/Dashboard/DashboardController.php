@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chat;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\ChatCollection;
 use App\Http\Requests\Dashboard\Profile\ImageRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +15,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Dashboard');
+        $chats = Chat::query()
+            ->where('user_id', Auth::user()->id)
+            ->get();
+        // $chats = Chat::query()->whereUserId(request("user"))->get();
+        $chatCollection = new ChatCollection($chats);
+
+        return Inertia::render('Dashboard', compact('chatCollection'));
     }
 
     public function image(ImageRequest $request)

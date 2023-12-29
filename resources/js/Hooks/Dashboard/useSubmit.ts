@@ -1,5 +1,6 @@
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import ChatService from "@/Services/Dashboard/ChatService";
+import { ChatContent } from "@/types/chat";
 import { toast } from "vue3-toastify";
 
 const useSubmit = () => {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Video\VideoController;

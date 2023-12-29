@@ -21,9 +21,6 @@ class ChatController extends Controller
      */
     public function index(): ChatCollection
     {
-        /*\request()->dd();
-        $response = Chat::query()->get();
-        if (!\request()->user()->is_admin)*/
         $response = Chat::query()->whereUserId(\request("user"))->get();
 
         return new ChatCollection($response);
@@ -36,12 +33,12 @@ class ChatController extends Controller
     public function indexInertia()
     {
         $response = User::query()
-            ->whereRelation("chats","user_id","!=",null)
+            ->whereRelation("chats", "user_id", "!=", null)
             ->withCount("chats")
             ->paginate(10);
 
         return inertia('admin/message/index/template', [
-            'users'     => $response,
+            'users' => $response,
         ]);
     }
 
@@ -64,7 +61,7 @@ class ChatController extends Controller
         DB::beginTransaction();
         try {
 
-            $response = Chat::create(\request()->only("user_id","content"));
+            $response = Chat::create(\request()->only("user_id", "content"));
 
             DB::commit();
 
@@ -75,7 +72,7 @@ class ChatController extends Controller
             \Log::error($error);
             DB::rollback();
 
-            throw new \Exception($e->getMessage(),Response::HTTP_BAD_REQUEST);
+            throw new \Exception($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
     }
@@ -95,7 +92,7 @@ class ChatController extends Controller
             \request()->merge(["user_id" => \auth()->id()]);
             $response = Chat::updateOrCreate([
                 "id" => $id
-            ],\request()->only("content"));
+            ], \request()->only("content"));
 
             DB::commit();
 
@@ -106,7 +103,7 @@ class ChatController extends Controller
             \Log::error($error);
             DB::rollback();
 
-            throw new \Exception($e->getMessage(),Response::HTTP_BAD_REQUEST);
+            throw new \Exception($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
 

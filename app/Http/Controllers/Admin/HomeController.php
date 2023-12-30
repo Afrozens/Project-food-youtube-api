@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Video;
-Use App\Models\Tag;
+use App\Models\Tag;
 
 class HomeController extends Controller
 {
@@ -16,12 +16,12 @@ class HomeController extends Controller
         $total_tags = Tag::count();
         $total_admin = 0;
         $total_users = 0;
-        if($request->user()->hasRole('Super Admin')) {
+        if ($request->user()->hasRole('Super Admin')) {
             $total_admin = User::role('admin')->count();
             $total_users = User::doesntHave('roles')->count();
         }
 
-        return inertia('admin/home/template', compact(
+        return inertia('Admin/Home', compact(
             'total_videos', 'total_tags', 'total_admin', 'total_users'
         ));
 

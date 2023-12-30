@@ -7,6 +7,7 @@ export interface User {
     img: string;
     super: boolean;
     img_path: string;
+    admin: boolean;
 }
 
 export type PageProps<

@@ -20,8 +20,8 @@ interface Tags {
 const props = defineProps<{
     tags: Tags;
     videos?: Video;
-    has: number[];
-    except: number[] | null;
+    has?: number[];
+    except?: number[] | null;
     last_page?: number;
     current_page?: number;
 }>();

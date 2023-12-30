@@ -1,20 +1,26 @@
 <script lang="ts" setup>
-import { onMounted, ref, computed } from "vue";
+import { computed } from "vue";
 import HomeIcon from "vue-material-design-icons/Home.vue";
+import MenuIcon from "vue-material-design-icons/Menu.vue";
 import ViewDashboardIcon from "vue-material-design-icons/ViewDashboard.vue";
+import CogIcon from "vue-material-design-icons/Cog.vue";
 import LogoutIcon from "vue-material-design-icons/Logout.vue";
 import LanguageDropdown from "@/Components/Dropdown/LanguageDropdown.vue";
 import AvatarGenerate from "@/Components/General/AvatarGenerate.vue";
 import Dropdown from "@/Components/Dropdown/Dropdown.vue";
 import { usePage, Link } from "@inertiajs/vue3";
 
-const { props } = usePage();
+const { props, url } = usePage();
 
 const dataUser = computed(() => {
     if (props.auth) {
         return props.auth.data;
     }
 });
+
+function startsWithAdmin(url: string) {
+    return /^\/admin/.test(url);
+}
 </script>
 
 <template>
@@ -23,14 +29,22 @@ const dataUser = computed(() => {
     >
         <header
             v-if="dataUser"
-            class="flex px-6 justify-between items-center w-full h-16 bg-primary shadow-md"
+            class="flex px-6 justify-between items-center w-full h-16 shadow-md"
+            :class="startsWithAdmin(url) ? 'bg-[#272727]' : 'bg-primary'"
         >
-            <Link
-                :href="route('index')"
-                class="text-lg lg:text-xl hover:opacity-80 cursor-pointer transition-all text-white font-semibold capitalize"
-            >
-                Es Mediterraneo
-            </Link>
+            <div class="items-center flex">
+                <button
+                    class="hover:bg-[#cdcaca2f] transition-all rounded-full p-3 mr-1"
+                >
+                    <MenuIcon fillColor="#fff" />
+                </button>
+                <Link
+                    :href="route('index')"
+                    class="text-lg lg:text-xl hover:opacity-80 cursor-pointer transition-all text-white font-medium capitalize"
+                >
+                    Es Mediterraneo
+                </Link>
+            </div>
 
             <div class="flex items-center gap-4">
                 <LanguageDropdown />
@@ -90,6 +104,20 @@ const dataUser = computed(() => {
                                             class="text-minus-base cursor-pointer flex-grow self-start font-light"
                                         >
                                             Panel
+                                        </span>
+                                    </Link>
+                                </li>
+                                <li class="w-full" v-if="dataUser.admin">
+                                    <Link
+                                        :href="route('admin.home')"
+                                        as="button"
+                                        class="flex w-full justify-between hover:bg-gray-100/50 gap-2 p-2 transition-all"
+                                    >
+                                        <CogIcon />
+                                        <span
+                                            class="text-minus-base cursor-pointer flex-grow self-start font-light"
+                                        >
+                                            Panel Administrativo
                                         </span>
                                     </Link>
                                 </li>

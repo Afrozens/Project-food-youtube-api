@@ -4,6 +4,14 @@
 @import "./transition.css";
 
 @tailwind base;
+@layer base {
+    body {
+        overflow-x: hidden !important;
+    }
+    body > div {
+        overflow-x: hidden !important;
+    }
+}
 @tailwind components;
 @layer components {
     .base-transition {

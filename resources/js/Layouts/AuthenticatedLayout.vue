@@ -166,10 +166,10 @@ const handleClose = () => {
         </header>
 
         <main
-            class="w-full mt-[64px] min-h-[calc(100vh-64px)] base-transition bg-transparent overflow-hidden"
-            :class="isOpen && 'md:ml-[240px]'"
+            class="w-full mt-[64px] min-h-[calc(100vh-64px)] base-transition bg-transparent overflow-x-hidden"
+            :class="isOpen && 'md:ml-[240px] md:px-24'"
         >
-            <slot />
+            <slot class="overflow-x-hidden" />
             <Drawer
                 @close="handleClose"
                 v-if="startsWithAdmin(url)"

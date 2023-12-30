@@ -15,6 +15,10 @@ const props = defineProps({
         required: false,
         type: Boolean,
     },
+    withSearch: {
+        required: false,
+        type: Boolean,
+    },
 });
 
 defineEmits(["update:modelValue"]);
@@ -45,7 +49,7 @@ const handlePassword = () => {
             class="peer input-form-up px-3"
             :required="isRequired"
             :type="type"
-            :class="id === 'password' && 'pr-12'"
+            :class="[id === 'password' && 'pr-12', withSearch && 'pl-10']"
             :value="modelValue"
             @input="
                 $emit(
@@ -70,7 +74,7 @@ const handlePassword = () => {
         </button>
         <label
             class="label-form-up"
-            :class="modelValue && 'has-value'"
+            :class="[modelValue && 'has-value', withSearch && 'left-10']"
             :for="label"
         >
             {{ label }}

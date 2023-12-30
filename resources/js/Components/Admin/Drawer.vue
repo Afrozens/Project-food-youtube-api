@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useMediaQuery } from "@vueuse/core";
+import { Link } from "@inertiajs/vue3";
 import TagMultipleIcon from "vue-material-design-icons/TagMultiple.vue";
 import HomeIcon from "vue-material-design-icons/Home.vue";
 import AccountMultipleIcon from "vue-material-design-icons/AccountMultiple.vue";
@@ -35,48 +36,41 @@ const close = () => {
             sizeSidebar ? 'md:w-60' : 'md:w-0 -left-48',
         ]"
     >
-        <Transition>
-            <div
-                v-if="sizeSidebar"
-                class="flex flex-col justify-between flex-1 base-transition mt-12"
-            >
-                <nav class="mt-6">
-                    <a class="item-link-drawer" href="#">
-                        <HomeIcon :size="25" />
-                        <span class="mx-4 font-base base-transition"
-                            >Inicio</span
-                        >
-                    </a>
+        <div
+            v-if="sizeSidebar"
+            class="flex flex-col justify-between flex-1 base-transition mt-12"
+        >
+            <nav class="mt-6">
+                <Link :href="route('admin.home')" class="item-link-drawer">
+                    <HomeIcon :size="25" />
+                    <span class="mx-4 font-base base-transition">Inicio</span>
+                </Link>
 
-                    <a class="item-link-drawer" href="#">
-                        <TagMultipleIcon :size="25" />
+                <Link
+                    class="item-link-drawer"
+                    :href="route('admin.tags.index')"
+                >
+                    <TagMultipleIcon :size="25" />
 
-                        <span class="mx-4 font-base base-transition">Tags</span>
-                    </a>
+                    <span class="mx-4 font-base base-transition">Tags</span>
+                </Link>
 
-                    <a class="item-link-drawer" href="#">
-                        <VideoIcon :size="25" />
+                <a class="item-link-drawer" href="#">
+                    <VideoIcon :size="25" />
 
-                        <span class="mx-4 font-base base-transition"
-                            >Videos</span
-                        >
-                    </a>
-                    <a class="item-link-drawer" href="#">
-                        <AccountMultipleIcon :size="25" />
+                    <span class="mx-4 font-base base-transition">Videos</span>
+                </a>
+                <a class="item-link-drawer" href="#">
+                    <AccountMultipleIcon :size="25" />
 
-                        <span class="mx-4 font-base base-transition"
-                            >Usuarios</span
-                        >
-                    </a>
-                    <a class="item-link-drawer" href="#">
-                        <MessageIcon :size="25" />
+                    <span class="mx-4 font-base base-transition">Usuarios</span>
+                </a>
+                <a class="item-link-drawer" href="#">
+                    <MessageIcon :size="25" />
 
-                        <span class="mx-4 font-base base-transition"
-                            >Mensajes</span
-                        >
-                    </a>
-                </nav>
-            </div>
-        </Transition>
+                    <span class="mx-4 font-base base-transition">Mensajes</span>
+                </a>
+            </nav>
+        </div>
     </aside>
 </template>

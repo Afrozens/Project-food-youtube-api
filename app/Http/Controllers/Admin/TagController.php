@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Resources\Tag\TagsCollection;
-use App\Http\Resources\Tag\TagResource;
 use App\Http\Requests\Admin\TagRequest;
 
 class TagController extends Controller
@@ -23,9 +22,13 @@ class TagController extends Controller
             $q->where('name', 'like', "%$search%");
         })->orderBy('name')->get();
         $tags = new TagsCollection($list);
-        return inertia('admin/tags/template', compact(
-            'tags', 'search'
-        ));
+        return inertia(
+            'Admin/Tags',
+            compact(
+                'tags',
+                'search'
+            )
+        );
     }
 
 
@@ -40,9 +43,11 @@ class TagController extends Controller
         $data = $request->all();
         Tag::create($data);
         $state = 'Se ha agregado un nuevo tag.';
-        return redirect()->back()->with(compact(
-            'state'
-        ));
+        return redirect()->back()->with(
+            compact(
+                'state'
+            )
+        );
     }
 
     /**
@@ -58,9 +63,11 @@ class TagController extends Controller
         $tag->fill($data);
         $tag->save();
         $state = 'Se ha actualizado un tag.';
-        return redirect()->back()->with(compact(
-            'state'
-        ));
+        return redirect()->back()->with(
+            compact(
+                'state'
+            )
+        );
     }
 
     /**
@@ -74,8 +81,10 @@ class TagController extends Controller
         $tag->videos()->detach();
         $tag->delete();
         $state = 'Se ha eliminado un tag.';
-        return redirect()->back()->with(compact(
-            'state'
-        ));
+        return redirect()->back()->with(
+            compact(
+                'state'
+            )
+        );
     }
 }

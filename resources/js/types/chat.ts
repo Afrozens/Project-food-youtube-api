@@ -16,3 +16,11 @@ export interface ChatContent {
     created_by: CreatedBy;
     user: User;
 }
+
+export interface Comment {
+    id: string;
+    img: string;
+    name: string;
+    created_at: string;
+    content: string;
+}

@@ -27,7 +27,7 @@ const dataUser = computed(() => {
         >
             <Link
                 :href="route('index')"
-                class="text-lg hover:opacity-80 cursor-pointer transition-all text-white font-semibold capitalize"
+                class="text-lg lg:text-xl hover:opacity-80 cursor-pointer transition-all text-white font-semibold capitalize"
             >
                 Es Mediterraneo
             </Link>

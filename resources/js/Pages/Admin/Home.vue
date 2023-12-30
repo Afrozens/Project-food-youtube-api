@@ -19,7 +19,7 @@ defineProps({
 
     <AuthenticatedLayout>
         <section
-            class="w-full px-4 mt-10 grid md:grid-cols-2 md:gap-6 lg:px-60 place-items-center"
+            class="w-full px-4 mt-10 gap-6 grid md:grid-cols-2 lg:px-60 place-items-center"
         >
             <Tag
                 :icon="TagMultipleIcon"

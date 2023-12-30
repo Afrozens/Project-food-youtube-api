@@ -1,16 +1,19 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import { usePage, Link } from "@inertiajs/vue3";
 import HomeIcon from "vue-material-design-icons/Home.vue";
 import MenuIcon from "vue-material-design-icons/Menu.vue";
 import ViewDashboardIcon from "vue-material-design-icons/ViewDashboard.vue";
 import CogIcon from "vue-material-design-icons/Cog.vue";
 import LogoutIcon from "vue-material-design-icons/Logout.vue";
 import LanguageDropdown from "@/Components/Dropdown/LanguageDropdown.vue";
+import Drawer from "@/Components/Admin/Drawer.vue";
 import AvatarGenerate from "@/Components/General/AvatarGenerate.vue";
 import Dropdown from "@/Components/Dropdown/Dropdown.vue";
-import { usePage, Link } from "@inertiajs/vue3";
 
 const { props, url } = usePage();
+
+const isOpen = ref(false);
 
 const dataUser = computed(() => {
     if (props.auth) {
@@ -21,6 +24,10 @@ const dataUser = computed(() => {
 function startsWithAdmin(url: string) {
     return /^\/admin/.test(url);
 }
+
+const handleClose = () => {
+    isOpen.value = false;
+};
 </script>
 
 <template>
@@ -29,11 +36,12 @@ function startsWithAdmin(url: string) {
     >
         <header
             v-if="dataUser"
-            class="flex px-6 justify-between items-center w-full h-16 shadow-md"
+            class="flex px-2 md:px-6 md:z-30 fixed justify-between items-center w-full h-16 shadow-md"
             :class="startsWithAdmin(url) ? 'bg-[#272727]' : 'bg-primary'"
         >
             <div class="items-center flex">
                 <button
+                    @click="isOpen = !isOpen"
                     class="hover:bg-[#cdcaca2f] transition-all rounded-full p-3 mr-1"
                 >
                     <MenuIcon fillColor="#fff" />
@@ -157,8 +165,16 @@ function startsWithAdmin(url: string) {
             </div>
         </header>
 
-        <main class="w-full min-h-screen bg-transparent overflow-hidden">
+        <main
+            class="w-full mt-[64px] min-h-[calc(100vh-64px)] base-transition bg-transparent overflow-hidden"
+            :class="isOpen && 'md:ml-[240px]'"
+        >
             <slot />
+            <Drawer
+                @close="handleClose"
+                v-if="startsWithAdmin(url)"
+                :sizeSidebar="isOpen"
+            />
         </main>
     </section>
 </template>

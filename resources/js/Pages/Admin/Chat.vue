@@ -15,7 +15,6 @@ const props = defineProps({
 });
 
 const data = computed(() => {
-    console.log(props.users, "pepe");
     return props.users as ChatAdmin;
 });
 
@@ -42,8 +41,8 @@ const handleUsers = (page: number) => {
                 <span class="font-semibold text-3xl">Mensajes</span>
             </header>
             <Table
-                class="mb-4 border border-slate-100"
                 :columns="columns"
+                class="mb-4 border border-slate-100"
                 :pagination="false"
                 :scroll="{ x: 750 }"
                 :data-source="data.data"

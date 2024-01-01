@@ -35,16 +35,15 @@ class UserController extends Controller
             }
         })->where('id', '!=', $request->user()->id)->paginate(20);
 
-        return inertia('admin/users/index/template', [
+        return inertia('Admin/User', [
             'users' => $users,
             'search' => $request->get('search'),
-            'type' => $request->get('type'),
         ]);
     }
 
     public function create()
     {
-        return inertia('admin/users/create/template');
+        return inertia('Admin/UserCreate');
     }
 
     public function store(Request $request)
@@ -83,7 +82,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return inertia('admin/users/edit/template', [
+        return inertia('Admin/UserEdit', [
             'user' => $user
         ]);
     }

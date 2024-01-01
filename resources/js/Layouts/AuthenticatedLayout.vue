@@ -22,7 +22,8 @@ const dataUser = computed(() => {
 });
 
 function startsWithAdmin(url: string) {
-    return /^\/admin/.test(url);
+    if (/^\/admin/.test(url) || /^\/chats/.test(url)) return true;
+    return false;
 }
 
 const handleClose = () => {
@@ -41,6 +42,7 @@ const handleClose = () => {
         >
             <div class="items-center flex">
                 <button
+                    v-if="startsWithAdmin(url)"
                     @click="isOpen = !isOpen"
                     class="hover:bg-[#cdcaca2f] transition-all rounded-full p-3 mr-1"
                 >

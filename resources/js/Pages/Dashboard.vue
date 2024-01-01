@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { Head, usePage } from "@inertiajs/vue3";
 import ResetPassword from "@/Components/Dashboard/ResetPassword.vue";
 import ResetInformation from "@/Components/Dashboard/ResetInformation.vue";
@@ -13,7 +13,7 @@ import { ChatContent } from "@/types/chat";
 const { props } = usePage();
 
 const propsDefine = defineProps({
-    chatCollection: Array<ChatContent>,
+    chatCollection: Object,
 });
 
 const dataUser = ref();
@@ -26,7 +26,12 @@ onMounted(() => {
     if (props.auth) {
         dataUser.value = props.auth.data;
     }
-    console.log(propsDefine.chatCollection, "pepe");
+});
+
+const chatData = computed(() => {
+    if (propsDefine.chatCollection) {
+        return propsDefine.chatCollection.data as ChatContent[];
+    }
 });
 </script>
 
@@ -42,17 +47,17 @@ onMounted(() => {
             <div
                 class="mx-auto my-6 parent-button relative flex hover:bg-[#202020b2] transition-all items-center justify-center rounded-full w-[170px] h-[170px] bg-transparent shadow-2xl"
             >
+                <img
+                    v-if="dataUser.img_path.length > 0"
+                    :src="dataUser.img_path"
+                    alt="profile image of user"
+                    class="w-full h-full rounded-full bg-cover"
+                />
                 <AccountIcon
                     class="child-button transition-all"
                     :size="120"
                     fillColor="222222"
-                    v-if="!dataUser.img_path"
-                />
-                <img
                     v-else
-                    :src="dataUser.img_path"
-                    alt="profile image of user"
-                    class="w-full h-full rounded-full bg-cover"
                 />
                 <button
                     @click="showChangeImage = true"
@@ -68,8 +73,8 @@ onMounted(() => {
             </div>
             <!-- Chat in comments -->
             <ChatInDashboard
-                v-if="propsDefine.chatCollection"
-                :data-chat="(propsDefine.chatCollection.data as ChatContent[])"
+                v-if="chatData && !dataUser.admin"
+                :data-chat="chatData"
             />
         </article>
         <!-- Modal for change image profile -->

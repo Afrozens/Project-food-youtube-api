@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { ref, computed, provide, watch } from "vue";
+import { ref, computed, provide } from "vue";
 import moment from "moment";
+import { usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
 import { ChatContent } from "@/types/chat";
 import AccountIcon from "vue-material-design-icons/Account.vue";
@@ -11,8 +12,11 @@ import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
 import ChatService from "@/Services/Dashboard/ChatService";
 import CommentEditInChat from "./CommentEditInChat.vue";
 
+const { props: propsPage } = usePage();
+
 const props = defineProps<{
     data: ChatContent;
+    idAuthUser?: number;
 }>();
 
 const emits = defineEmits(["deleted"]);
@@ -77,7 +81,10 @@ provide("modelValue", modelValue);
             <p class="pt-2">
                 {{ content }}
             </p>
-            <div class="items-end justify-end w-full flex gap-4">
+            <div
+                v-if="propsPage.auth.data.id === data.created_by.id"
+                class="items-end justify-end w-full flex gap-4"
+            >
                 <!-- Edit button msg -->
                 <TertiaryButton
                     @click="handleChangeEdit"

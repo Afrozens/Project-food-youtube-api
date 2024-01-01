@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $chats = Chat::query()
             ->where('user_id', Auth::user()->id)
             ->get();
-        // $chats = Chat::query()->whereUserId(request("user"))->get();
+
         $chatCollection = new ChatCollection($chats);
 
         return Inertia::render('Dashboard', compact('chatCollection'));

@@ -70,7 +70,7 @@ const tagsData = computed(() => {
 </script>
 
 <template>
-    <Head title="Panel Administrativo" />
+    <Head title="Tags" />
 
     <AuthenticatedLayout>
         <section
@@ -90,7 +90,15 @@ const tagsData = computed(() => {
                 />
                 <MagnifyIcon class="absolute left-3 top-1/2 -translate-y-1/2" />
             </div>
-            <article class="w-full flex gap-4 flex-wrap">
+            <article
+                v-if="tagsData?.length === 0"
+                class="w-full flex justify-center items-center"
+            >
+                <span class="font-semibold text-center mx-auto"
+                    >No se encontraron tags
+                </span>
+            </article>
+            <article v-else class="w-full flex gap-4 flex-wrap">
                 <TagOfList v-for="tag in tagsData" :tag="tag" :key="tag.id" />
             </article>
         </section>

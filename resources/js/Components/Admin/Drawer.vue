@@ -65,11 +65,14 @@ const close = () => {
 
                     <span class="mx-4 font-base base-transition">Usuarios</span>
                 </a>
-                <a class="item-link-drawer" href="#">
+                <Link
+                    class="item-link-drawer"
+                    :href="route('admin.chats.index')"
+                >
                     <MessageIcon :size="25" />
 
                     <span class="mx-4 font-base base-transition">Mensajes</span>
-                </a>
+                </Link>
             </nav>
         </div>
     </aside>

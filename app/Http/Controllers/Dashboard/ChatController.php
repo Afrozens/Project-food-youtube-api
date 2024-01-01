@@ -37,15 +37,22 @@ class ChatController extends Controller
             ->withCount("chats")
             ->paginate(10);
 
-        return inertia('admin/message/index/template', [
+        return inertia('Admin/Chat', [
             'users' => $response,
         ]);
     }
 
     public function edit($id)
     {
-        return inertia('admin/message/edit/template', [
-            'user' => User::query()->find($id)
+        $chats = Chat::query()
+            ->where('user_id', $id)
+            ->get();
+
+        $chat = new ChatCollection($chats);
+
+        return inertia('Admin/ChatEdit', [
+            'user' => User::query()->find($id),
+            'dataChat' => $chat
         ]);
     }
 

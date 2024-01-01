@@ -13,6 +13,10 @@ const { props } = usePage<PageProps>();
 
 const propsDefine = defineProps({
     dataChat: Array<ChatContent>,
+    idAuthUser: {
+        required: false,
+        type: Number,
+    },
 });
 
 const { isLoading, handleSubmit, data } = useSubmit();
@@ -29,7 +33,7 @@ onMounted(() => {
 
 const localHandleSubmit = async () => {
     const dataIn = {
-        user_id: props.auth.data.id,
+        user_id: propsDefine.idAuthUser ?? props.auth.data.id,
         content: comment.value,
     };
     await handleSubmit(path, dataIn);
@@ -54,19 +58,24 @@ const dataWithMsg = computed(() => {
 <template>
     <div class="w-full flex flex-col gap-4 mx-auto self-center lg:px-14">
         <div
-            :class="!dataWithMsg && 'h-[400px]'"
+            :class="!dataWithMsg?.length > 0 && 'h-[400px]'"
             class="w-full bg-white rounded-md py-8 px-6"
         >
             <h4
-                v-if="!dataWithMsg"
+                v-if="!dataWithMsg?.length > 0"
                 class="text-minus-base normal-case font-semibold text-center"
             >
                 No hay comentarios
             </h4>
-            <TransitionGroup name="list" tag="ul">
+            <TransitionGroup
+                name="list"
+                tag="ul"
+                class="max-h-[450px] overflow-y-auto"
+            >
                 <CommentInChat
                     v-for="(msg, index) in dataWithMsg"
                     :key="msg.id"
+                    :id-auth-user="idAuthUser"
                     :data="msg"
                     @deleted="delMsg(index)"
                 />

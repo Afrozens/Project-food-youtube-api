@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { h, ref, onMounted } from "vue";
 import vSelect from "vue-select";
+// @ts-ignore - iconos sin typings
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
+// @ts-ignore - iconos sin typings
 import CloseCircleIcon from "vue-material-design-icons/CloseCircle.vue";
 import CustomCheckbox from "./CustomCheckbox.vue";
 import { HasOrExcept } from "@/types/video";
-import { attachTypeApi } from "ant-design-vue/es/message";
 
 interface optionSelect {
     id: number;
@@ -28,6 +29,7 @@ const props = defineProps({
 defineEmits(["update:modelValue"]);
 const data = ref();
 
+// @ts-ignore - select with default without type
 vSelect.props.components.default = () => ({
     Deselect: {
         render: () =>
@@ -72,7 +74,7 @@ onMounted(() => {
             ref="data"
         >
             <template #no-options> No se encontraron ingredientes. </template>
-            <template #option="option">
+            <template #option="option: HasOrExcept">
                 <div :key="option.id" class="flex gap-1 items-center">
                     <CustomCheckbox
                         class="checkbox-parent"
@@ -85,7 +87,7 @@ onMounted(() => {
                     }}</span>
                 </div>
             </template>
-            <template #selected-option="option">
+            <template #selected-option="option: HasOrExcept">
                 <span class="text-center ml-2" :key="option.id">{{
                     option.name
                 }}</span>

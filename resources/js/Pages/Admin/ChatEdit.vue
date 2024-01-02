@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { Head } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import MessageTextIcon from "vue-material-design-icons/MessageText.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { ChatAdminData, ChatContent } from "@/types/chat";

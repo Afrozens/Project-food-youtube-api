@@ -2,8 +2,11 @@
 import { computed, ref, onMounted } from "vue";
 import { watchDebounced } from "@vueuse/core";
 import { Head, router } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
+// @ts-ignore - iconos sin typings
 import PlusIcon from "vue-material-design-icons/Plus.vue";
+// @ts-ignore - iconos sin typings
 import TagMultipleIcon from "vue-material-design-icons/TagMultiple.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { HasOrExcept } from "@/types/video";
@@ -38,7 +41,6 @@ const handleSearch = () => {
             search: term.value,
         },
         {
-            preserveState: (page) => Object.keys(page.props.errors).length,
             onStart: () => {
                 isLoading.value = true;
             },

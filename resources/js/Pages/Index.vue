@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { Head, router, useForm } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import FoodVariantIcon from "vue-material-design-icons/FoodVariant.vue";
+// @ts-ignore - iconos sin typings
 import FoodVariantOffIcon from "vue-material-design-icons/FoodVariantOff.vue";
+// @ts-ignore - iconos sin typings
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
@@ -15,7 +18,7 @@ import { ref } from "vue";
 import Banner from "@/Components/General/Banner.vue";
 
 interface Tags {
-    data: HasOrExcept[];
+    data: [];
 }
 
 const props = defineProps<{

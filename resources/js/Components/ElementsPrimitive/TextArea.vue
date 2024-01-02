@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+// @ts-ignore - iconos sin typings
 import EmoticonOutlineIcon from "vue-material-design-icons/EmoticonOutline.vue";
 
 defineProps({

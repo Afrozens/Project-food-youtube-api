@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// @ts-ignore - iconos sin typings
 import ImageAreaIcon from "vue-material-design-icons/ImageArea.vue";
 
 const numberTag = 2;

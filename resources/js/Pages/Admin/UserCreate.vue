@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { Head, Link, router, useForm } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import AccountMultiplePlusIcon from "vue-material-design-icons/AccountMultiplePlus.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import FormField from "@/Components/General/FormField.vue";
@@ -19,7 +20,6 @@ const handleCreate = () => {
     form.clearErrors();
     const path = route("admin.users.store");
     form.post(path, {
-        preserveState: (page) => Object.keys(page.props.errors).length,
         onError: () => {
             form.reset("password", "password_confirmation");
             toast("No se pudo crear el usuario", {

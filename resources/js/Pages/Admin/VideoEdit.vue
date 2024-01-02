@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, provide } from "vue";
 import { Head, router, useForm } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import QuillField from "@/Components/General/QuillField.vue";
@@ -43,7 +44,6 @@ const handleSend = () => {
         _method: "put",
     }));
     form.post(path, {
-        preserveState: (page) => Object.keys(page.props.errors).length,
         forceFormData: true,
         onSuccess: () => {
             toast("Has editado con exito un video", {

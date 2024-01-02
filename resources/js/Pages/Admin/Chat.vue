@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { Head, Link, router } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import ForumIcon from "vue-material-design-icons/Forum.vue";
+// @ts-ignore - iconos sin typings
 import MessageTextIcon from "vue-material-design-icons/MessageText.vue";
 import { MenuItem, Table } from "ant-design-vue";
 import { columns } from "../../Setup/Admin/Chat";
@@ -23,9 +25,7 @@ const handleUsers = (page: number) => {
     const data = {
         page: page,
     };
-    router.get(path, {
-        preserveState: (page) => Object.keys(page.props.errors).length,
-    });
+    router.get(path, {});
 };
 </script>
 

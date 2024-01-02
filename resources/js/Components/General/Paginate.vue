@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+// @ts-ignore - iconos sin typings
 import ChevronLeftIcon from "vue-material-design-icons/ChevronLeft.vue";
+// @ts-ignore - iconos sin typings
 import ChevronRightIcon from "vue-material-design-icons/ChevronRight.vue";
 
 defineProps({

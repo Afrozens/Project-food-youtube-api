@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { Dropdown, Menu, MenuItem } from "ant-design-vue";
+// @ts-ignore - iconos sin typings
 import SettingsHelperIcon from "vue-material-design-icons/SettingsHelper.vue";
 </script>
 
 <template>
-    <Dropdown :trigger="['click']" placement="left">
+    <Dropdown :trigger="['click']" placement="bottomLeft">
         <button
             :type="'button'"
             class="font-medium rounded-lg hover:bg-[#a7a5a524] transition-all text-sm w-12 pl-5 py-2.5 mb-2"

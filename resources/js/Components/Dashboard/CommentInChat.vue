@@ -4,10 +4,13 @@ import moment from "moment";
 import { usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
 import { ChatContent } from "@/types/chat";
+// @ts-ignore - iconos sin typings
 import AccountIcon from "vue-material-design-icons/Account.vue";
-import Loader from "../General/Loader.vue";
+// @ts-ignore - iconos sin typings
 import NoteEditOutlineIcon from "vue-material-design-icons/NoteEditOutline.vue";
+// @ts-ignore - iconos sin typings
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
+import Loader from "../General/Loader.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
 import ChatService from "@/Services/Dashboard/ChatService";
 import CommentEditInChat from "./CommentEditInChat.vue";

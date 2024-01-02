@@ -3,11 +3,17 @@ import { ref, onMounted } from "vue";
 import { Head, router, useForm, Link } from "@inertiajs/vue3";
 import { MenuItem, Table } from "ant-design-vue";
 import { toast } from "vue3-toastify";
+// @ts-ignore - iconos sin typings
 import AccountIcon from "vue-material-design-icons/Account.vue";
+// @ts-ignore - iconos sin typings
 import PlusIcon from "vue-material-design-icons/Plus.vue";
+// @ts-ignore - iconos sin typings
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
+// @ts-ignore - iconos sin typings
 import CogRefreshOutlineIcon from "vue-material-design-icons/CogRefreshOutline.vue";
+// @ts-ignore - iconos sin typings
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
+// @ts-ignore - iconos sin typings
 import EditIcon from "vue-material-design-icons/AccountEdit.vue";
 import { columns } from "../../Setup/Admin/User";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
@@ -74,7 +80,6 @@ const handleChangeAdmin = (id: number) => {
             data: {
                 _method: "put",
             },
-            preserveState: (page) => Object.keys(page.props.errors).length,
         },
         {
             onStart: () => {
@@ -110,7 +115,6 @@ const handleGetUsers = (page: number | null) => {
     }));
 
     form.get(path, {
-        preserveState: (page) => Object.keys(page.props.errors).length,
         onStart: () => {
             isLoading.value = true;
         },

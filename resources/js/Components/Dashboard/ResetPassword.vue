@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
+// @ts-ignore - iconos sin typings
 import LockIcon from "vue-material-design-icons/Lock.vue";
 import FormField from "../General/FormField.vue";
 import PrimaryButton from "../ElementsPrimitive/PrimaryButton.vue";

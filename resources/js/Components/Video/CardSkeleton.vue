@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// @ts-ignore - iconos sin typings
 import FileVideoIcon from "vue-material-design-icons/FileVideo.vue";
 
 const numberTag = 3;

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { Head } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TextArea from "@/Components/ElementsPrimitive/TextArea.vue";

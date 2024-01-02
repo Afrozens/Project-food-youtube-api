@@ -2,8 +2,11 @@
 import { ref, computed, onMounted } from "vue";
 import { Head, router, Link } from "@inertiajs/vue3";
 import { watchDebounced } from "@vueuse/core";
+// @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
+// @ts-ignore - iconos sin typings
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
+// @ts-ignore - iconos sin typings
 import PlusIcon from "vue-material-design-icons/Plus.vue";
 import { Video } from "@/types/video";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
@@ -40,7 +43,6 @@ const handleSearch = (page: number | null) => {
             page: page,
         },
         {
-            preserveState: (page) => Object.keys(page.props.errors).length,
             onStart: () => {
                 isLoading.value = true;
             },
@@ -113,7 +115,9 @@ const numberSkeleton = 8;
                 </span>
             </article>
             <Transition v-else>
-                <article class="w-full">
+                <article
+                    class="w-full px-4 grid mb-4 grid-cols-1 sm:gap-2 lg:grid-cols-2 md:gap-2 lg:gap-4 lg:px-6"
+                >
                     <CardVideo
                         v-for="videoData in data.data"
                         :key="videoData.id"

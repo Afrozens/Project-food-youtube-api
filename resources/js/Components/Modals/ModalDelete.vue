@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { watch, onMounted, onUnmounted, ref } from "vue";
 import { toast } from "vue3-toastify";
+// @ts-ignore - iconos sin typings
 import CloseCircleOutlineIcon from "vue-material-design-icons/CloseCircleOutline.vue";
+// @ts-ignore - iconos sin typings
 import InformationOutlineIcon from "vue-material-design-icons/InformationOutline.vue";
 import { router } from "@inertiajs/vue3";
 import Loader from "../General/Loader.vue";
@@ -48,7 +50,6 @@ const handleDelete = async () => {
             data: {
                 _method: "delete",
             },
-            preserveState: (page) => Object.keys(page.props.errors).length,
             onStart: () => {
                 isLoading.value = true;
             },

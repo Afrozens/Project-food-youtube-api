@@ -2,8 +2,11 @@
 import { Head } from "@inertiajs/vue3";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import Tag from "../../Components/Admin/Tag.vue";
+// @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
+// @ts-ignore - iconos sin typings
 import TagMultipleIcon from "vue-material-design-icons/TagMultiple.vue";
+// @ts-ignore - iconos sin typings
 import AccountMultipleIcon from "vue-material-design-icons/AccountMultiple.vue";
 
 defineProps({

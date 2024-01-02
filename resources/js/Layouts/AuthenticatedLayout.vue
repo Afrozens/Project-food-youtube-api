@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { usePage, Link } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import HomeIcon from "vue-material-design-icons/Home.vue";
+// @ts-ignore - iconos sin typings
 import MenuIcon from "vue-material-design-icons/Menu.vue";
+// @ts-ignore - iconos sin typings
 import ViewDashboardIcon from "vue-material-design-icons/ViewDashboard.vue";
+// @ts-ignore - iconos sin typings
 import CogIcon from "vue-material-design-icons/Cog.vue";
+// @ts-ignore - iconos sin typings
 import LogoutIcon from "vue-material-design-icons/Logout.vue";
 import LanguageDropdown from "@/Components/Dropdown/LanguageDropdown.vue";
 import Drawer from "@/Components/Admin/Drawer.vue";

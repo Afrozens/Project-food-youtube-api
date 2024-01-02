@@ -3,7 +3,9 @@ import { ref, onMounted, computed } from "vue";
 import { Head, usePage } from "@inertiajs/vue3";
 import ResetPassword from "@/Components/Dashboard/ResetPassword.vue";
 import ResetInformation from "@/Components/Dashboard/ResetInformation.vue";
+// @ts-ignore - iconos sin typings
 import CameraFlipIcon from "vue-material-design-icons/CameraFlip.vue";
+// @ts-ignore - iconos sin typings
 import AccountIcon from "vue-material-design-icons/Account.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import ChatInDashboard from "@/Components/Dashboard/ChatInDashboard.vue";

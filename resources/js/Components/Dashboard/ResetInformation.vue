@@ -2,6 +2,7 @@
 import { PageProps } from "../../types/index";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
+// @ts-ignore - iconos sin typings
 import AccountEditIcon from "vue-material-design-icons/AccountEdit.vue";
 import FormField from "../General/FormField.vue";
 import PrimaryButton from "../ElementsPrimitive/PrimaryButton.vue";

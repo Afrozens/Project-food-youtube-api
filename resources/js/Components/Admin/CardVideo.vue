@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { Link, router } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import FileVideoOutlineIcon from "vue-material-design-icons/FileVideoOutline.vue";
+// @ts-ignore - iconos sin typings
 import NoteEditOutlineIcon from "vue-material-design-icons/NoteEditOutline.vue";
+// @ts-ignore - iconos sin typings
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
 import { VideoData } from "@/types/video";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";

@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { ref, inject, Ref } from "vue";
+// @ts-ignore - iconos sin typings
 import LinkIcon from "vue-material-design-icons/Link.vue";
+// @ts-ignore - iconos sin typings
 import PencilIcon from "vue-material-design-icons/Pencil.vue";
+// @ts-ignore - iconos sin typings
 import CloseIcon from "vue-material-design-icons/CloseCircle.vue";
 import TextInput from "../ElementsPrimitive/TextInput.vue";
 import axios from "axios";
@@ -46,7 +49,7 @@ const getVideoId = async () => {
             if (verifyUrl) {
                 verifyUrl.value = true;
             }
-        } catch (e) {
+        } catch (e: any) {
             if (e.response) {
                 error.value = e.response.data.errors.url;
             } else {

@@ -34,6 +34,7 @@ const modules = {
 };
 
 onMounted(() => {
+    // @ts-ignore - new Quill without type
     const editor = new Quill(quillRef.value, {
         modules,
         placeholder: props.placeholder,

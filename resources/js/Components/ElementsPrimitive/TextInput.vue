@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+// @ts-ignore - iconos sin typings
 import EyeIcon from "vue-material-design-icons/Eye.vue";
+// @ts-ignore - iconos sin typings
 import EyeOffIcon from "vue-material-design-icons/EyeOff.vue";
 
 const props = defineProps({

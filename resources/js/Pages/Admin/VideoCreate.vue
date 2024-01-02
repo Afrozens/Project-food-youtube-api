@@ -2,6 +2,7 @@
 import { ref, provide } from "vue";
 import { Head, router, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+// @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
 import FormField from "@/Components/General/FormField.vue";
 import UrlYoutube from "@/Components/Admin/UrlYoutube.vue";
@@ -31,7 +32,6 @@ const handleSend = () => {
     const path = route("admin.videos.store");
     form.videoId = videoId.value;
     form.post(path, {
-        preserveState: (page) => Object.keys(page.props.errors).length,
         forceFormData: true,
         onSuccess: () => {
             toast("Has creado con exito un video", {

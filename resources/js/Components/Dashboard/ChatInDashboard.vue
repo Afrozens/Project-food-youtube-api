@@ -58,11 +58,11 @@ const dataWithMsg = computed(() => {
 <template>
     <div class="w-full flex flex-col gap-4 mx-auto self-center lg:px-14">
         <div
-            :class="!dataWithMsg?.length > 0 && 'h-[400px]'"
+            :class="Number(!dataWithMsg?.length) > 0 && 'h-[400px]'"
             class="w-full bg-white rounded-md py-8 px-6"
         >
             <h4
-                v-if="!dataWithMsg?.length > 0"
+                v-if="Number(!dataWithMsg?.length) > 0"
                 class="text-minus-base normal-case font-semibold text-center"
             >
                 No hay comentarios

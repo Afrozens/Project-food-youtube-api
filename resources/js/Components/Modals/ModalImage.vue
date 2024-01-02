@@ -4,7 +4,9 @@ import { ref, onMounted, onUnmounted, watch, reactive } from "vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { Cropper } from "vue-advanced-cropper";
 import InputError from "../ElementsPrimitive/InputError.vue";
+// @ts-ignore - iconos sin typings
 import CameraFlipIcon from "vue-material-design-icons/CameraFlip.vue";
+// @ts-ignore - iconos sin typings
 import CameraIcon from "vue-material-design-icons/Camera.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
 import Loader from "../General/Loader.vue";
@@ -36,24 +38,26 @@ const allowedTypes = ["image/jpeg", "image/png", "image/bmp", "image/webp"];
 
 const handleChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
-    const file = target.files[0];
-    if (file) {
-        if (allowedTypes.includes(file.type)) {
-            fileValue.value = file;
-            const reader = new FileReader();
+    if (target.files) {
+        const file = target.files[0];
+        if (file) {
+            if (allowedTypes.includes(file.type)) {
+                fileValue.value = file;
+                const reader = new FileReader();
 
-            reader.onload = (e: ProgressEvent<FileReader>) => {
-                const path = e.target?.result as string;
-                previewData.value = path;
-            };
-            reader.readAsDataURL(file);
-        } else {
-            isError.value = "The image size exceeds the set size";
+                reader.onload = (e: ProgressEvent<FileReader>) => {
+                    const path = e.target?.result as string;
+                    previewData.value = path;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                isError.value = "The image size exceeds the set size";
+            }
         }
     }
 };
 
-const changeImage = ({ coordinates, canvas }) => {
+const changeImage = ({ canvas }: { canvas: HTMLCanvasElement }) => {
     let dataURL = canvas.toDataURL("image/png");
     let blobBin = atob(dataURL.split(",")[1]);
     let array = [];
@@ -75,7 +79,6 @@ const handleSend = () => {
     }));
 
     form.post(path, {
-        preserveState: (page) => Object.keys(page.props.errors).length,
         onStart: () => {
             isLoading.value = true;
         },

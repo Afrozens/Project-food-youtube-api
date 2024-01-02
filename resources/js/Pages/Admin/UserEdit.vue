@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { Head, Link, router, useForm } from "@inertiajs/vue3";
+// @ts-ignore - iconos sin typings
 import PencilIcon from "vue-material-design-icons/Pencil.vue";
 import { toast } from "vue3-toastify";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
@@ -30,7 +31,6 @@ const handleUpdate = () => {
         }));
 
         form.post(path, {
-            preserveState: (page) => Object.keys(page.props.errors).length,
             onSuccess: () => {
                 toast("Has editado el usuario correctamente", {
                     autoClose: 1000,

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+// @ts-ignore - iconos sin typings
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
+// @ts-ignore - iconos sin typings
 import NoteEditOutlineIcon from "vue-material-design-icons/NoteEditOutline.vue";
 import { HasOrExcept } from "@/types/video";
 import Loader from "../General/Loader.vue";

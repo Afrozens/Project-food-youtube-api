@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { h, ref, onMounted } from "vue";
 import vSelect from "vue-select";
+// @ts-ignore - iconos sin typings
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
+// @ts-ignore - iconos sin typings
 import CloseCircleIcon from "vue-material-design-icons/CloseCircle.vue";
 
 const props = defineProps({
@@ -19,6 +21,7 @@ const props = defineProps({
 defineEmits(["update:modelValue"]);
 const data = ref();
 
+// @ts-ignore - select with default without type
 vSelect.props.components.default = () => ({
     Deselect: {
         render: () =>

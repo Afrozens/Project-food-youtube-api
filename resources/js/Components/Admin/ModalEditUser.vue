@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
+// @ts-ignore - iconos sin typings
 import TagArrowUpIcon from "vue-material-design-icons/TagArrowUp.vue";
 import FormField from "../General/FormField.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
@@ -36,9 +37,6 @@ const handleSend = () => {
         _method: "put",
     }));
     form.post(path, {
-        preserveState(page) {
-            Object.keys(page.props.errors).length;
-        },
         onSuccess: () => {
             toast("Has editado un tag con exito", {
                 autoClose: 1000,

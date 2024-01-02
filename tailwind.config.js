@@ -16,7 +16,9 @@ export default {
                 sans: ['Roboto', ...defaultTheme.fontFamily.sans],
             },
             backgroundImage: {
-                'black-background': "url('/img/black-background.png')"
+                'black-background': "url('/img/black-background.png')",
+                'index-background': "url('/img/banner01.png')",
+                'header-background': "url('/img/banner02.png')"
             },
             backgroundColor: {
                 primary: '#1976D2'

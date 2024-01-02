@@ -12,6 +12,7 @@ import { HasOrExcept, Video } from "@/types/video";
 import Loader from "@/Components/General/Loader.vue";
 import Paginate from "@/Components/General/Paginate.vue";
 import { ref } from "vue";
+import Banner from "@/Components/General/Banner.vue";
 
 interface Tags {
     data: HasOrExcept[];
@@ -68,7 +69,7 @@ const numberSkeleton = 8;
 
     <AuthenticatedLayout>
         <header
-            class="px-14 w-full pb-14 py-20 bg-primary flex gap-4 items-center flex-col md:flex-row justify-between rounded-b-xl"
+            class="px-14 w-full pb-14 py-20 bg-primary bg-index-background bg-cover bg-no-repeat object-cover flex gap-4 items-center flex-col md:flex-row justify-between rounded-b-xl"
         >
             <div
                 class="w-full flex-col self-center pb-4 md:pb-0 flex-grow gap-4 flex lg:flex-row justify-between"
@@ -183,6 +184,7 @@ const numberSkeleton = 8;
                 No se encontraron videos.
             </span>
         </section>
+        <Banner v-if="videos?.data || videos?.data.length === 0" />
     </AuthenticatedLayout>
 </template>
 

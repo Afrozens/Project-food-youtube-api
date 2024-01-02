@@ -38,7 +38,11 @@ const handleClose = () => {
         <header
             v-if="dataUser"
             class="flex px-2 md:px-6 z-[99] fixed justify-between items-center w-full h-16 shadow-md"
-            :class="startsWithAdmin(url) ? 'bg-[#272727]' : 'bg-primary'"
+            :class="
+                startsWithAdmin(url)
+                    ? 'bg-[#272727]'
+                    : 'bg-header-background bg-cover bg-no-repeat object-cover'
+            "
         >
             <div class="items-center flex">
                 <button

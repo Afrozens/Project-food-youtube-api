@@ -57,11 +57,14 @@ const close = () => {
                     <span class="mx-4 font-base base-transition">Tags</span>
                 </Link>
 
-                <a class="item-link-drawer" href="#">
+                <Link
+                    class="item-link-drawer"
+                    :href="route('admin.videos.index')"
+                >
                     <VideoIcon :size="25" />
 
                     <span class="mx-4 font-base base-transition">Videos</span>
-                </a>
+                </Link>
                 <Link
                     class="item-link-drawer"
                     :href="route('admin.users.index')"

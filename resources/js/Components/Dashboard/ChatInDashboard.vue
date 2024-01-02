@@ -82,7 +82,7 @@ const dataWithMsg = computed(() => {
             </TransitionGroup>
         </div>
         <div class="w-full bg-white rounded-md p-4 pt-6">
-            <form class="w-full h-full">
+            <form @submit.prevent="localHandleSubmit" class="w-full h-full">
                 <TextArea
                     class="mb-8"
                     id="comments"

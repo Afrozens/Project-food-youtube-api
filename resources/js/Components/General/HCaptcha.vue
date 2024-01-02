@@ -4,7 +4,6 @@ import VueHcaptcha from "@hcaptcha/vue3-hcaptcha";
 
 const withTokenCaptcha = inject("withTokenCaptcha") as Ref<string>;
 const onVerify = (token: string, eKey: string) => {
-    console.log(token);
     withTokenCaptcha.value = token;
 };
 </script>

@@ -32,6 +32,13 @@ vSelect.props.components.default = () => ({
         render: () => h(ChevronDownIcon),
     },
 });
+
+onMounted(() => {
+    if (data.value) {
+        const typeStorage = localStorage.getItem("type");
+        data.value.updateValue(JSON.parse(typeStorage as string));
+    }
+});
 </script>
 
 <template>

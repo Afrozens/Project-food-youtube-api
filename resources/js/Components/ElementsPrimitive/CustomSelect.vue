@@ -1,17 +1,18 @@
 <script lang="ts" setup>
-import { h, ref, watch } from "vue";
+import { h, ref, onMounted } from "vue";
 import vSelect from "vue-select";
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
 import CloseCircleIcon from "vue-material-design-icons/CloseCircle.vue";
 import CustomCheckbox from "./CustomCheckbox.vue";
 import { HasOrExcept } from "@/types/video";
+import { attachTypeApi } from "ant-design-vue/es/message";
 
 interface optionSelect {
     id: number;
     name: string;
 }
 
-defineProps({
+const props = defineProps({
     options: Array<optionSelect>,
     label: String,
     title: String,
@@ -20,6 +21,7 @@ defineProps({
         type: Boolean,
     },
     modelValue: Array,
+    withWhite: Boolean,
     isMultiple: Boolean,
 });
 
@@ -39,25 +41,31 @@ vSelect.props.components.default = () => ({
         render: () => h(ChevronDownIcon),
     },
 });
+
+onMounted(() => {
+    if (data.value) {
+        data.value.updateValue(props.modelValue);
+    }
+});
 </script>
 
 <template>
-    <div class="relative w-full">
+    <div class="relative w-full" v-if="modelValue">
         <vSelect
             :value="modelValue"
             @option:selected="
                 $emit(
                     'update:modelValue',
-                    data.selectedValue.map((value: HasOrExcept) => value.id)
+                    data.selectedValue.map((value: HasOrExcept) => value)
                 )
             "
             @option:deselected="
                 $emit(
                     'update:modelValue',
-                    data.selectedValue.map((value: HasOrExcept) => value.id)
+                    data.selectedValue.map((value: HasOrExcept) => value)
                 )
             "
-            :options="options && options.map((option) => option)"
+            :options="options"
             :label="title"
             class="peer input-form-up pl-12 capitalize"
             :multiple="isMultiple"
@@ -65,11 +73,7 @@ vSelect.props.components.default = () => ({
         >
             <template #no-options> No se encontraron ingredientes. </template>
             <template #option="option">
-                <div
-                    @click.prevent
-                    class="flex gap-1 items-center"
-                    :key="option.name"
-                >
+                <div :key="option.id" class="flex gap-1 items-center">
                     <CustomCheckbox
                         class="checkbox-parent"
                         :checked="
@@ -82,13 +86,16 @@ vSelect.props.components.default = () => ({
                 </div>
             </template>
             <template #selected-option="option">
-                <span class="text-center ml-2" :key="option.name">{{
+                <span class="text-center ml-2" :key="option.id">{{
                     option.name
                 }}</span>
             </template>
         </vSelect>
         <label
-            class="hidden md:flex select-label-form-up left-14 bg-primary text-white"
+            class="hidden md:flex select-label-form-up left-14"
+            :class="
+                withWhite ? 'bg-[#F3F4F6] text-black' : 'bg-primary text-white'
+            "
             :for="label"
         >
             {{ label }}

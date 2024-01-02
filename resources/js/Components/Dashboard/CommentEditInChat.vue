@@ -29,7 +29,6 @@ const handleSubmit = async () => {
         const data = {
             content: comment.value,
         };
-        console.log(data, path);
         await serviceChat.fetchUpdatedMsgInChat(path, data);
         modelValue.value = comment.value;
         isLoading.value = false;

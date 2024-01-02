@@ -27,7 +27,7 @@ class VideoController extends Controller
         $videos = Video::when($search, function ($q, $search) {
             $q->where('title', 'like', "%$search%");
         })->orderBy('title')->paginate();
-        return inertia('admin/videos/index/template', [
+        return inertia('Admin/Video', [
             'videos' => new VideoCollection($videos),
             'search' => $search
         ]);
@@ -41,7 +41,7 @@ class VideoController extends Controller
     public function create()
     {
         $tags = Tag::orderBy('name')->get();
-        return inertia('admin/videos/create/template', [
+        return inertia('Admin/VideoCreate', [
             'tags' => new TagsCollection($tags),
         ]);
     }
@@ -72,7 +72,7 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        return inertia('admin/videos/show/template', [
+        return inertia('Admin/VideoEach', [
             'video' => new VideoResource($video)
         ]);
     }
@@ -86,7 +86,7 @@ class VideoController extends Controller
     public function edit(Video $video)
     {
         $tags = Tag::orderBy('name')->get();
-        return inertia('admin/videos/edit/template', [
+        return inertia('Admin/VideoEdit', [
             'tags' => new TagsCollection($tags),
             'video' => new VideoResource($video)
         ]);
@@ -136,10 +136,13 @@ class VideoController extends Controller
         $url = $request->url;
         $video_id = Youtube::parseVidFromURL($url);
         $video_info = Youtube::getVideoInfo($video_id);
-        if($video_info) {
-            return response()->json(compact(
-                'video_id'
-            ), 200);
+        if ($video_info) {
+            return response()->json(
+                compact(
+                    'video_id'
+                ),
+                200
+            );
         } else {
             $message = 'El video no existe o fue eliminado';
             return response()->json([

@@ -37,7 +37,6 @@ const allowedTypes = ["image/jpeg", "image/png", "image/bmp", "image/webp"];
 const handleChange = (event: Event) => {
     const target = event.target as HTMLInputElement;
     const file = target.files[0];
-    console.log(file, "pepe");
     if (file) {
         if (allowedTypes.includes(file.type)) {
             fileValue.value = file;

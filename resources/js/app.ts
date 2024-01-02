@@ -2,6 +2,8 @@ import "./bootstrap";
 import "../css/app.css";
 import "vue-select/dist/vue-select.css";
 import "vue3-toastify/dist/index.css";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
 
 import { createApp, h, DefineComponent } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";

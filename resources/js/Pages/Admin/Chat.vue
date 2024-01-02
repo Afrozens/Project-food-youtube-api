@@ -38,7 +38,7 @@ const handleUsers = (page: number) => {
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <ForumIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl">Mensajes</span>
+                <span class="font-semibold text-2xl md:text-3xl">Mensajes</span>
             </header>
             <Table
                 :columns="columns"

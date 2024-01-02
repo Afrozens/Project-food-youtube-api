@@ -77,7 +77,9 @@ const numberSkeleton = 8;
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <VideoIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl">Listado de Videos</span>
+                <span class="font-semibold text-2xl md:text-3xl"
+                    >Listado de Videos</span
+                >
             </header>
             <hr class="h-px bg-gray-300 mb-4 border-0 col-span-2 opacity-80" />
             <div class="w-full relative mb-8">
@@ -91,7 +93,7 @@ const numberSkeleton = 8;
             </div>
             <article class="w-full" v-if="isLoading">
                 <TransitionGroup
-                    class="w-full px-4 grid mb-4 grid-cols-1 sm:gap-2 md:grid-cols-2 md:gap-2 lg:gap-4 lg:px-6"
+                    class="w-full px-4 grid mb-4 grid-cols-1 sm:gap-2 lg:grid-cols-2 md:gap-2 lg:gap-4 lg:px-6"
                     name="list"
                     tag="ul"
                 >
@@ -110,19 +112,15 @@ const numberSkeleton = 8;
                     >No se encontraron videos
                 </span>
             </article>
-            <article v-else class="w-full">
-                <TransitionGroup
-                    class="w-full grid md:grid-cols-2 gap-8 mb-5"
-                    tag="ul"
-                    name="list"
-                >
+            <Transition v-else>
+                <article class="w-full">
                     <CardVideo
                         v-for="videoData in data.data"
                         :key="videoData.id"
                         :video="videoData"
                     />
-                </TransitionGroup>
-            </article>
+                </article>
+            </Transition>
             <Paginate
                 @next="handleSearch"
                 :length="data.meta.last_page"

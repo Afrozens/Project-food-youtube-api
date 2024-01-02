@@ -82,7 +82,7 @@ const numberSkeleton = 8;
                     <CustomSelect
                         :model-value="form.has"
                         @update:modelValue="form.has = $event"
-                        :options="tags && tags.data"
+                        :options="tags?.data"
                         label="¿Qué debe contener?"
                         title="name"
                         :is-required="true"
@@ -98,7 +98,7 @@ const numberSkeleton = 8;
                     <CustomSelect
                         :model-value="form.except"
                         @update:modelValue="form.except = $event"
-                        :options="tags && tags.data"
+                        :options="tags?.data"
                         label="¿Qué no debe contener?"
                         title="name"
                         :is-required="true"
@@ -112,14 +112,11 @@ const numberSkeleton = 8;
                 :disabled="form.processing"
                 class="w-28 h-[48.21px] bg-sky-500"
             >
-                <span
-                    v-show="!form.processing || !isLoading"
-                    class="flex items-center gap-1"
-                >
+                <span v-show="!form.processing" class="flex items-center gap-1">
                     <MagnifyIcon />
                     Buscar
                 </span>
-                <Loader v-show="form.processing || isLoading" />
+                <Loader v-show="form.processing" />
             </PrimaryButton>
         </header>
 

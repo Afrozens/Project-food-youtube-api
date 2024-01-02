@@ -31,7 +31,7 @@ const chat = computed(() => {
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <MessageTextIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl"
+                <span class="font-semibold text-2xl md:text-3xl"
                     >Mensajes de {{ data.name }}</span
                 >
             </header>

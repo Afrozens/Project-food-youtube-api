@@ -65,7 +65,9 @@ provide("verifyUrl", verifyUrl);
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <VideoIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl">Nuevo Video</span>
+                <span class="font-semibold text-2xl md:text-3xl"
+                    >Nuevo Video</span
+                >
             </header>
             <Transition>
                 <UrlYoutube :url="urlCurrent" :open="true" />

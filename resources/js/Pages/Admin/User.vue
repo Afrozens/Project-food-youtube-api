@@ -22,6 +22,7 @@ import Loader from "@/Components/General/Loader.vue";
 const props = defineProps({
     users: Object,
     search: String,
+    type: String,
 });
 
 const isLoading = ref(false);
@@ -29,15 +30,27 @@ const isOpenDelete = ref(false);
 
 const form = useForm({
     search: "",
-    type: [],
+    type: [] as (
+        | {
+              type: string;
+              value: null;
+          }
+        | {
+              type: string;
+              value: string;
+          }
+    )[],
 });
 
 onMounted(() => {
-    const typeStorage = localStorage.getItem("type");
-    if (props.search) {
+    if (props.search || props.type) {
+        const type = optionsForSelect.filter(
+            (option) => option.value === props.type
+        );
         //Vue select type not default value
-        form.type = JSON.parse(typeStorage as string);
-        form.search = props.search;
+        form.type = type;
+        console.log(type, "pepe");
+        form.search = props.search as string;
     }
 });
 
@@ -120,7 +133,7 @@ const handleGetUsers = (page: number | null) => {
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <AccountIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl">Usuarios</span>
+                <span class="font-semibold text-2xl md:text-3xl">Usuarios</span>
             </header>
             <form
                 @submit.prevent="handleGetUsers(null)"

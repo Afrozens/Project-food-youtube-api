@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineProps({
-    icon: Element,
+    icon: Object,
     isBlack: Boolean,
     background: String,
     title: String,

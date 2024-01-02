@@ -34,20 +34,19 @@ vSelect.props.components.default = () => ({
 });
 
 onMounted(() => {
-    if (data.value) {
-        const typeStorage = localStorage.getItem("type");
-        data.value.updateValue(JSON.parse(typeStorage as string));
+    if (data.value && props.modelValue) {
+        data.value.updateValue(props.modelValue);
     }
 });
 </script>
 
 <template>
-    <div class="relative w-full">
+    <div class="relative w-full" v-if="props.modelValue">
         <vSelect
             :value="modelValue"
             @option:selected="$emit('update:modelValue', data.selectedValue)"
             @option:deselected="$emit('update:modelValue', data.selectedValue)"
-            :options="options && options.map((option) => option)"
+            :options="options"
             :label="title"
             class="peer input-form-up pl-4 capitalize"
             :multiple="isMultiple"

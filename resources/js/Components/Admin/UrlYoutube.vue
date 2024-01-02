@@ -64,7 +64,7 @@ const getVideoId = async () => {
 </script>
 
 <template>
-    <div v-if="!isSend" class="flex gap-2 text-lg items-center">
+    <div v-if="!isSend" class="flex gap-2 md:text-lg items-center">
         <LinkIcon />
         {{ url }}
         <button

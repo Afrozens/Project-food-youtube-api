@@ -76,7 +76,7 @@ provide("urlCurrent", urlCurrent);
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <VideoIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl"
+                <span class="font-semibold text-2xl md:text-3xl"
                     >Editar video: {{ data?.title }}</span
                 >
             </header>

@@ -78,7 +78,9 @@ const tagsData = computed(() => {
         >
             <header class="mb-4 w-full flex items-center justify-start gap-2">
                 <TagMultipleIcon :size="70" fillColor="#757575" />
-                <span class="font-semibold text-3xl">Listado de Tags</span>
+                <span class="font-semibold text-2xl md:text-3xl"
+                    >Listado de Tags</span
+                >
             </header>
             <hr class="h-px bg-gray-300 mb-4 border-0 col-span-2 opacity-80" />
             <div class="w-full relative mb-8">

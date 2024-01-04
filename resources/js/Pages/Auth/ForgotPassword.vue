@@ -23,11 +23,11 @@ const submit = () => {
 
         <div class="mb-4 text-extra-md text-gray-600">
             <h2 class="typografy-main font-semibold justify-center text-center">
-                Forgot your password.
+                Has olvidado tu contraseña
             </h2>
             <p class="paragraph font-light text-center">
-                Just let us know your email address and we will email you a
-                password reset link that will allow you to choose a new one.
+                Indíquenos su dirección de correo electrónico y le enviaremos un
+                que le permitirá elegir una nueva
             </p>
         </div>
 
@@ -39,7 +39,7 @@ const submit = () => {
             <FormField
                 id="email"
                 type="email"
-                label="Email"
+                label="Correo elétronico"
                 :is-required="true"
                 v-model="form.email"
                 :error="form.errors.email"
@@ -49,17 +49,17 @@ const submit = () => {
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             >
-                Email Password Reset Link
+                Restablece la contraseña
             </PrimaryButton>
         </form>
 
         <h4 class="text-extra-md text-center">
-            Back to
+            Vuelve a
             <Link
                 :href="route('login')"
                 class="text-primary font-semibold hover:opacity-80 transition-opacity"
             >
-                Login</Link
+                Inicio de sesión</Link
             >
         </h4>
     </GuestLayout>

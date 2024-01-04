@@ -63,7 +63,7 @@ const handleCreate = () => {
                         <FormField
                             id="name"
                             type="text"
-                            :label="$t('message.components.name')"
+                            label="Nombre"
                             :is-required="true"
                             v-model="form.name"
                             :error="form.errors.name"
@@ -72,7 +72,7 @@ const handleCreate = () => {
                         <FormField
                             id="nickname"
                             type="text"
-                            :label="$t('message.components.nickname')"
+                            label="Apodo"
                             :is-required="true"
                             v-model="form.nickname"
                             :error="form.errors.nickname"
@@ -83,7 +83,7 @@ const handleCreate = () => {
                         id="email"
                         type="email"
                         v-model="form.email"
-                        :label="$t('message.components.email')"
+                        label="Correo elétronico"
                         :is-required="true"
                         :error="form.errors.email"
                     />
@@ -91,7 +91,7 @@ const handleCreate = () => {
                     <FormField
                         id="password"
                         type="password"
-                        :label="$t('message.components.password')"
+                        label="Contraseña"
                         v-model="form.password"
                         :is-required="true"
                         :error="form.errors.password"
@@ -102,7 +102,7 @@ const handleCreate = () => {
                         id="password_confirmation"
                         type="password"
                         v-model="form.password_confirmation"
-                        :label="$t('message.components.confirmPassword')"
+                        label="Confirma contraseña"
                         :is-required="true"
                         :error="form.errors.password_confirmation"
                     />

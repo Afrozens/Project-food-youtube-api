@@ -36,7 +36,7 @@ const submit = () => {
             <FormField
                 id="email"
                 type="email"
-                :label="$t('message.components.email')"
+                label="Correo elétronico"
                 v-model="form.email"
                 :is-required="true"
                 :error="form.errors.email"
@@ -44,7 +44,7 @@ const submit = () => {
 
             <FormField
                 id="password"
-                :label="$t('message.components.password')"
+                label="Contraseña"
                 type="password"
                 v-model="form.password"
                 :is-required="true"
@@ -53,7 +53,7 @@ const submit = () => {
 
             <FormField
                 id="password_confirmation"
-                :label="$t('message.components.confirmPassword')"
+                label="Confirma contraseña"
                 type="password"
                 v-model="form.password_confirmation"
                 :is-required="true"
@@ -65,7 +65,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Reset Password
+                    Reinicia la contraseña
                 </PrimaryButton>
             </div>
         </form>

@@ -11,7 +11,6 @@ import ViewDashboardIcon from "vue-material-design-icons/ViewDashboard.vue";
 import CogIcon from "vue-material-design-icons/Cog.vue";
 // @ts-ignore - iconos sin typings
 import LogoutIcon from "vue-material-design-icons/Logout.vue";
-import LanguageDropdown from "@/Components/Dropdown/LanguageDropdown.vue";
 import Drawer from "@/Components/Admin/Drawer.vue";
 import AvatarGenerate from "@/Components/General/AvatarGenerate.vue";
 import Dropdown from "@/Components/Dropdown/Dropdown.vue";
@@ -46,7 +45,7 @@ const handleClose = () => {
             :class="
                 startsWithAdmin(url)
                     ? 'bg-[#272727]'
-                    : 'bg-header-background bg-cover bg-no-repeat object-cover'
+                    : 'bg-header-background bg-cover bg-no-repeat object-cover bg-primary'
             "
         >
             <div class="items-center flex">
@@ -66,7 +65,6 @@ const handleClose = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <LanguageDropdown />
                 <Dropdown>
                     <template #trigger>
                         <button
@@ -150,7 +148,7 @@ const handleClose = () => {
                                         <span
                                             class="text-minus-base cursor-pointer flex-grow self-start font-light"
                                         >
-                                            Home
+                                            Inicio
                                         </span>
                                     </Link>
                                 </li>

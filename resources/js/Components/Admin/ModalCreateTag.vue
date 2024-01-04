@@ -112,7 +112,7 @@ onUnmounted(() => {
                         <FormField
                             class="mb-8"
                             type="text"
-                            :label="$t('message.components.name')"
+                            label="Nombre"
                             :is-required="true"
                             v-model="form.name"
                             :error="form.errors.name"

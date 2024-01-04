@@ -73,7 +73,7 @@ const handleUpdate = () => {
                     <FormField
                         id="name"
                         type="text"
-                        :label="$t('message.components.name')"
+                        label="Nombre"
                         :is-required="true"
                         v-model="form.name"
                         :error="form.errors.name"
@@ -82,7 +82,7 @@ const handleUpdate = () => {
                     <FormField
                         id="nickname"
                         type="text"
-                        :label="$t('message.components.nickname')"
+                        label="Apodo"
                         :is-required="true"
                         v-model="form.nickname"
                         :error="form.errors.nickname"
@@ -92,7 +92,7 @@ const handleUpdate = () => {
                         class="mb-5"
                         type="email"
                         v-model="form.email"
-                        :label="$t('message.components.email')"
+                        label="Correo elétronico"
                         :is-required="true"
                         :error="form.errors.email"
                     />

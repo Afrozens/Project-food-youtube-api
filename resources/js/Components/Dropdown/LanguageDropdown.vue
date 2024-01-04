@@ -12,11 +12,7 @@ import changeLanguage from "@/Utils/changeLanguage";
                     class="flex gap-1 hover:bg-gray-100/50 p-2 rounded-lg items-center justify-center cursor-pointer hover:opacity-90 transition-all"
                 >
                     <img
-                        :src="
-                            $i18n.locale === 'es'
-                                ? '/icons/es.svg'
-                                : '/icons/en.svg'
-                        "
+                        :src="$i18n.locale === 'es' ? '/es.svg' : '/en.svg'"
                         class="w-4 h-4"
                     />
                     <span class="text-extra-md text-white font-semibold">
@@ -37,11 +33,7 @@ import changeLanguage from "@/Utils/changeLanguage";
                             class="flex gap-1 items-center justify-center px-2"
                         >
                             <img
-                                :src="
-                                    locale === 'es'
-                                        ? '/icons/es.svg'
-                                        : '/icons/en.svg'
-                                "
+                                :src="locale === 'es' ? '/es.svg' : '/en.svg'"
                                 class="w-4 h-4"
                             />
                             {{ changeLanguage(locale) }}

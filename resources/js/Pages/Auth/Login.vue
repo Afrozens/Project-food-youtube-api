@@ -38,14 +38,15 @@ const submit = () => {
             <h2
                 class="capitalize typografy-main font-semibold justify-center text-center"
             >
-                {{ $t("message.login.title") }}
+                Iniciar sesión para continuar
             </h2>
             <p class="paragraph font-light text-center">
-                {{ $t("message.login.subTitle") }}
+                Proporcione sus credenciales de acceso para disfrutar de
+                contenidos exclusivos
             </p>
         </div>
 
-        <ProvidersSign :label="$t('message.header.optionOne')" />
+        <ProvidersSign label="loguearse" />
         <hr class="h-px bg-gray-300 mb-4 border-0 col-span-2 opacity-80" />
         <form
             @submit.prevent="submit"
@@ -53,7 +54,7 @@ const submit = () => {
         >
             <FormField
                 id="email"
-                :label="$t('message.components.email')"
+                label="Correo elétronico"
                 :is-required="true"
                 type="email"
                 v-model="form.email"
@@ -63,7 +64,7 @@ const submit = () => {
             <FormField
                 class="mt-4 mb-2"
                 id="password"
-                :label="$t('message.components.password')"
+                label="Contraseña"
                 type="password"
                 :is-required="true"
                 v-model="form.password"
@@ -75,7 +76,7 @@ const submit = () => {
                 :href="route('password.request')"
                 class="hover:underline transition-all hover:opacity-80 self-end text-xs text-gray-600 hover:text-gray-900 rounded-md focus:outline-none"
             >
-                {{ $t("message.login.forgot") }}
+                ¿Ha olvidado su contraseña?
             </Link>
 
             <div class="block relative self-start">
@@ -84,7 +85,7 @@ const submit = () => {
                     <span
                         class="ml-2 text-sm text-gray-600 cursor-pointer transition-all hover:opacity-90 hover:underline"
                     >
-                        {{ $t("message.login.remember") }}
+                        Recúerdame
                     </span>
                 </label>
             </div>
@@ -94,16 +95,16 @@ const submit = () => {
                 class="mb-2 w-full mt-4 capitalize"
                 :disabled="form.processing"
             >
-                {{ $t("message.header.optionOne") }}
+                Loguearse
             </PrimaryButton>
         </form>
         <div class="flex gap-2 items-center justify-center mt-4">
-            <h4 class="text-extra-md">{{ $t("message.login.dont") }}</h4>
+            <h4 class="text-extra-md">¿No tienes una cuenta?</h4>
             <Link
                 :href="route('register')"
                 class="capitalize text-primary font-semibold hover:opacity-80 transition-opacity"
             >
-                {{ $t("message.header.optionTwo") }}
+                Registrarse
             </Link>
         </div>
     </GuestLayout>

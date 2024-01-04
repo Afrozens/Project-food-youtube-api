@@ -109,4 +109,8 @@ Route::middleware('auth')->group(function () {
         ->group(base_path('routes/web/admin.php'));
 });
 
+Route::get('/symlink', function () {
+    Artisan::call('storage:link');
+});
+
 require __DIR__ . '/auth.php';

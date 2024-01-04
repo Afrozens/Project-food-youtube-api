@@ -73,7 +73,7 @@ const handleSubmitPassword = () => {
             <FormField
                 class="mb-8"
                 id="password"
-                :label="$t('message.components.password')"
+                label="Contraseña"
                 type="password"
                 v-model="formPassword.password"
                 :is-required="true"
@@ -83,7 +83,7 @@ const handleSubmitPassword = () => {
             <FormField
                 class="mb-8"
                 id="password_confirmation"
-                :label="$t('message.components.confirmPassword')"
+                label="Confirma contraseña"
                 type="password"
                 v-model="formPassword.password_confirmation"
                 :is-required="true"

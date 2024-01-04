@@ -40,14 +40,16 @@ provide("withTokenCaptcha", withTokenCaptcha);
 
         <div class="mx-auto mb-4">
             <h2 class="typografy-main font-semibold justify-center text-center">
-                {{ $t("message.register.title") }}
+                Únete a nuestra comunidad
             </h2>
             <p class="paragraph font-light text-center">
-                {{ $t("message.register.paragraph") }}
+                Introduzca los datos solicitados para registrarse y empiece a
+                disfrutar de todas las ventajas de ser miembro de nuestro sitio
+                web
             </p>
         </div>
 
-        <ProvidersSign :label="$t('message.header.optionTwo')" />
+        <ProvidersSign label="registrarse" />
         <hr class="h-px bg-gray-300 mb-4 border-0 col-span-2 opacity-80" />
         <form
             @submit.prevent="submit"
@@ -57,7 +59,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
                 <FormField
                     id="name"
                     type="text"
-                    :label="$t('message.components.name')"
+                    label="Nombre"
                     :is-required="true"
                     v-model="form.name"
                     :error="form.errors.name"
@@ -66,7 +68,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
                 <FormField
                     id="nickname"
                     type="text"
-                    :label="$t('message.components.nickname')"
+                    label="Apodo"
                     :is-required="true"
                     v-model="form.nickname"
                     :error="form.errors.nickname"
@@ -77,7 +79,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
                 id="email"
                 type="email"
                 v-model="form.email"
-                :label="$t('message.components.email')"
+                label="Correo elétronico"
                 :is-required="true"
                 :error="form.errors.email"
             />
@@ -85,7 +87,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
             <FormField
                 id="password"
                 type="password"
-                :label="$t('message.components.password')"
+                label="Contraseña"
                 v-model="form.password"
                 :is-required="true"
                 :error="form.errors.password"
@@ -96,7 +98,7 @@ provide("withTokenCaptcha", withTokenCaptcha);
                 id="password_confirmation"
                 type="password"
                 v-model="form.password_confirmation"
-                :label="$t('message.components.confirmPassword')"
+                label="Confirma contraseña"
                 :is-required="true"
                 :error="form.errors.password_confirmation"
             />
@@ -110,26 +112,26 @@ provide("withTokenCaptcha", withTokenCaptcha);
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             >
-                {{ $t("message.header.optionTwo") }}
+                Registrarse
             </PrimaryButton>
             <small class="text-extra-sm font-light px-4 text-center -mt-2">
-                For added security, you must complete the verification
+                Para mayor seguridad, debe completar la verificación
                 <a
                     href="https://www.hcaptcha.com/"
                     class="font-semibold hover:opacity-80 transition-all hover:underline"
                 >
                     hCaptcha
                 </a>
-                before logging in.
+                antes de registrarse.
             </small>
         </form>
         <div class="flex gap-2 items-center justify-center mt-4">
-            <h4 class="text-extra-md">{{ $t("message.register.alReady") }}</h4>
+            <h4 class="text-extra-md">¿Ya se ha registrado?</h4>
             <Link
                 :href="route('login')"
                 class="capitalize text-primary font-semibold hover:opacity-80 transition-opacity"
             >
-                {{ $t("message.header.optionOne") }}
+                Iniciar sesión
             </Link>
         </div>
     </GuestLayout>

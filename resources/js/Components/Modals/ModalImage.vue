@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import "vue-advanced-cropper/dist/style.css";
 import { ref, onMounted, onUnmounted, watch, reactive } from "vue";
-import { useForm, usePage } from "@inertiajs/vue3";
+import { router, useForm, usePage } from "@inertiajs/vue3";
 import { Cropper } from "vue-advanced-cropper";
 import InputError from "../ElementsPrimitive/InputError.vue";
 // @ts-ignore - iconos sin typings
@@ -10,6 +10,7 @@ import CameraFlipIcon from "vue-material-design-icons/CameraFlip.vue";
 import CameraIcon from "vue-material-design-icons/Camera.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
 import Loader from "../General/Loader.vue";
+import { toast } from "vue3-toastify";
 
 const props = withDefaults(
     defineProps<{
@@ -21,8 +22,6 @@ const props = withDefaults(
         closeable: true,
     }
 );
-
-const { props: propsAuth } = usePage();
 
 const form = useForm({
     image: null as File | null,
@@ -41,10 +40,10 @@ const handleChange = (event: Event) => {
     if (target.files) {
         const file = target.files[0];
         if (file) {
+            console.log(file, "pepe");
             if (allowedTypes.includes(file.type)) {
                 fileValue.value = file;
                 const reader = new FileReader();
-
                 reader.onload = (e: ProgressEvent<FileReader>) => {
                     const path = e.target?.result as string;
                     previewData.value = path;
@@ -83,10 +82,22 @@ const handleSend = () => {
             isLoading.value = true;
         },
         onError: () => {
+            toast("Hubo un error al cambiar su foto de perfil", {
+                autoClose: 1000,
+                position: "top-right",
+                type: "error",
+            });
             isLoading.value = false;
         },
-        onFinish: () => {
+        onSuccess: () => {
+            toast("Se ha cambiado su foto de perfil con exito", {
+                autoClose: 1000,
+                position: "top-right",
+                type: "success",
+            });
             isLoading.value = false;
+            close();
+            router.get(route("dashboard"));
         },
     });
 };

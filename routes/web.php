@@ -113,4 +113,8 @@ Route::get('/symlink', function () {
     Artisan::call('storage:link');
 });
 
+Route::get('/cache-clear', function () {
+    Artisan::call('optimize');
+});
+
 require __DIR__ . '/auth.php';

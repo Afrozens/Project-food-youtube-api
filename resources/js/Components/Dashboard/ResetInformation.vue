@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { PageProps } from "../../types/index";
-import { useForm, usePage } from "@inertiajs/vue3";
+import { router, useForm, usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
 // @ts-ignore - iconos sin typings
 import AccountEditIcon from "vue-material-design-icons/AccountEdit.vue";
@@ -24,6 +24,7 @@ const handleSubmitInformation = () => {
                 position: "top-right",
                 type: "success",
             });
+            router.get(route("dashboard"));
         },
         onError: () => {
             toast("No se ha podido cambiar el perfil.", {

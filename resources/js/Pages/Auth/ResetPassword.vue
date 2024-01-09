@@ -36,7 +36,7 @@ const submit = () => {
             <FormField
                 id="email"
                 type="email"
-                label="Correo elétronico"
+                label="Correo eléctronico"
                 v-model="form.email"
                 :is-required="true"
                 :error="form.errors.email"

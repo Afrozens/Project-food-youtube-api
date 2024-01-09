@@ -19,18 +19,21 @@ const handleNext = (page: number) => {
 <template>
     <nav class="mx-auto w-full flex justify-center items-center mb-4">
         <ul class="flex items-center -space-x-px h-10 text-base shadow-md">
-            <li>
-                <a
-                    href="#"
+            <li v-if="current && current > 1">
+                <button
+                    @click="handleNext((current as number) - 1)"
                     class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
                 >
                     <ChevronLeftIcon />
-                </a>
+                    <span class="md:hidden font-semibold text-lg"
+                        >Anterior</span
+                    >
+                </button>
             </li>
             <li v-for="index in length" :key="index">
                 <button
                     @click="handleNext(index)"
-                    class="flex items-center justify-center px-4 h-10 leading-tight font-medium border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                    class="hidden md:flex items-center justify-center px-4 h-10 leading-tight font-medium border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
                     :class="
                         current === index
                             ? 'bg-primary text-white'
@@ -41,13 +44,16 @@ const handleNext = (page: number) => {
                 </button>
             </li>
 
-            <li>
-                <a
-                    href="#"
+            <li v-if="current !== length">
+                <button
+                    @click="handleNext((current as number) + 1)"
                     class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
                 >
+                    <span class="md:hidden font-semibold text-lg"
+                        >Siguiente</span
+                    >
                     <ChevronRightIcon />
-                </a>
+                </button>
             </li>
         </ul>
     </nav>

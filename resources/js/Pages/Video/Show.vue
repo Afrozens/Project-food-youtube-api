@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref, computed, provide } from "vue";
 import { Head } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
@@ -10,6 +10,7 @@ import { Comment as CommentType } from "../../types/chat";
 import VideoService from "../../Services/Video/VideoService";
 import Comment from "../../Components/Video/Comment.vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
+import CommentInVideo from "@/Components/Video/CommentInVideo.vue";
 
 const props = defineProps({
     video: Object,
@@ -17,6 +18,7 @@ const props = defineProps({
 
 const serviceVideo = new VideoService();
 
+const dataNewComment = ref();
 const dataInComment = ref<CommentType[]>([]);
 
 const data = computed(() => {
@@ -34,7 +36,16 @@ const handleComment = async () => {
             });
 
             await serviceVideo.fetchGetComment(path);
-            dataInComment.value = serviceVideo.getData();
+            const dataIn = serviceVideo.getData();
+            const commentsInChatOrder = dataIn.chats.sort(
+                (a: CommentType, b: CommentType) => {
+                    return (
+                        new Date(b.created_at).getTime() -
+                        new Date(a.created_at).getTime()
+                    );
+                }
+            );
+            dataInComment.value = [...commentsInChatOrder, ...dataIn.comments];
         } catch (error) {
             console.log(error);
         }
@@ -44,6 +55,20 @@ const handleComment = async () => {
 if (data.value) {
     handleComment();
 }
+
+const delMsg = (index: number) => {
+    dataInComment.value?.splice(index, 1);
+};
+
+const dataInCommentTotal = computed(() => {
+    if (dataNewComment.value) {
+        dataInComment.value.unshift(dataNewComment.value);
+        return dataInComment.value;
+    }
+    return dataInComment.value;
+});
+
+provide("dataNewComment", dataNewComment);
 </script>
 
 <template>
@@ -65,7 +90,7 @@ if (data.value) {
                 class="bg-cover w-full h-[500px] bg-no-repeat bg-center"
             />
             <p
-                class="text-[14px] mb-8 text-black opacity-60"
+                class="text-[14px] mb-8 text-black"
                 v-html="data?.description"
             ></p>
             <article
@@ -75,15 +100,18 @@ if (data.value) {
                     <CommentMultipleIcon fillColor="#757575" />
                     <span class="text-[20px] leading-[30px]">Comments</span>
                 </header>
+                <CommentInVideo :video-id="data?.id" />
                 <TransitionGroup
                     name="list"
                     tag="ul"
-                    class="flex flex-col gap-4"
+                    class="flex flex-col gap-4 mt-2"
                 >
                     <Comment
-                        v-for="comment in dataInComment"
+                        v-for="(comment, index) in dataInCommentTotal"
                         :comment="comment"
                         :key="comment.id"
+                        :video-id="(data?.id as number)"
+                        @deleted="delMsg(index)"
                     />
                 </TransitionGroup>
             </article>

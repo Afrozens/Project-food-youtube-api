@@ -36,8 +36,12 @@ const localHandleSubmit = async () => {
         user_id: propsDefine.idAuthUser ?? props.auth.data.id,
         content: comment.value,
     };
-    await handleSubmit(path, dataIn);
-    comment.value = "";
+    try {
+        await handleSubmit(path, dataIn, "chat");
+        comment.value = "";
+    } catch (error) {
+        console.log(error, "error in chat in dashboard");
+    }
 };
 
 const delMsg = (index: number) => {
@@ -85,9 +89,9 @@ const dataWithMsg = computed(() => {
             <form @submit.prevent="localHandleSubmit" class="w-full h-full">
                 <TextArea
                     class="mb-8"
-                    id="comments"
+                    id="comentario"
                     v-model="comment"
-                    label="Comments"
+                    label="Comentario"
                     :is-required="true"
                 >
                     <template #btn-left>

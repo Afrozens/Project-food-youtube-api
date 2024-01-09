@@ -56,9 +56,9 @@ const data = computed(() => {
                     <form class="w-full h-full">
                         <TextArea
                             class="mb-8"
-                            id="comments"
+                            id="comentario"
                             v-model="comment"
-                            label="Comments"
+                            label="Comentario"
                             :is-required="true"
                         >
                             <template #btn-left>

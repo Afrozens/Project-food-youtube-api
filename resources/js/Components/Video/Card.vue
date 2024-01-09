@@ -1,11 +1,22 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { Link } from "@inertiajs/vue3";
 import { HasOrExcept, VideoData } from "../../types/video";
 import TagInCard from "./TagInCard.vue";
 
-defineProps<{
+const props = defineProps<{
     dataIn?: VideoData;
+    tagsCurrents: string[];
 }>();
+
+const tagsWithoutCurrents = computed(() => {
+    if (props.dataIn) {
+        const filteredTags = props.dataIn.has_more.filter((tags) => {
+            return !props.tagsCurrents.some((tagsTwo) => tags.name === tagsTwo);
+        });
+        return filteredTags;
+    }
+});
 </script>
 
 <template>
@@ -34,15 +45,18 @@ defineProps<{
         </Link>
 
         <div class="-mb-4 w-full whitespace-normal leading-[1.4] p-4">
-            <span v-html="dataIn?.description" class="text-[14px]"></span>
+            <span
+                v-html="dataIn?.description"
+                class="line-clamp-5 text-[14px]"
+            ></span>
         </div>
         <div class="w-full p-4 flex flex-col gap-2 justify-between">
             <div class="w-full flex gap-2 flex-wrap">
                 <TagInCard
-                    v-for="(data, index) in dataIn?.tags"
+                    v-for="(data, index) in tagsCurrents"
                     :key="index"
                     color="green"
-                    :data="(data as HasOrExcept)"
+                    :current="data"
                 />
             </div>
             <span class="leading-[1.4] capitalize text-base">
@@ -50,7 +64,7 @@ defineProps<{
             </span>
             <div class="w-full flex flex-wrap gap-2">
                 <TagInCard
-                    v-for="(data, index) in dataIn?.has_more"
+                    v-for="(data, index) in tagsWithoutCurrents"
                     :key="index"
                     color="blue"
                     :data="(data as HasOrExcept)"

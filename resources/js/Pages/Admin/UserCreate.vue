@@ -83,7 +83,7 @@ const handleCreate = () => {
                         id="email"
                         type="email"
                         v-model="form.email"
-                        label="Correo elétronico"
+                        label="Correo eléctronico"
                         :is-required="true"
                         :error="form.errors.email"
                     />

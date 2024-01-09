@@ -17,7 +17,9 @@ const lazyOptions = ref({
 </script>
 
 <template>
-    <div class="w-full relative h-72 px-24 my-4">
+    <div
+        class="w-full relative h-72 max-w-sm mb-5 md:max-w-5xl mx-auto md:px-24 my-4"
+    >
         <img
             v-lazy="{
                 src: lazyOptions.src,

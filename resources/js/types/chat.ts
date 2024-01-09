@@ -18,11 +18,12 @@ export interface ChatContent {
 }
 
 export interface Comment {
-    id: string;
+    id: string | number;
     img: string;
     name: string;
     created_at: string;
     content: string;
+    user_id?: string | number;
 }
 
 export interface ChatAdminData {

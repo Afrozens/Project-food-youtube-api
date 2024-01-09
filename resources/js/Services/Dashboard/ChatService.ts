@@ -22,7 +22,7 @@ class ChatService {
         return this.success.value;
     }
 
-    getData(): string {
+    getData() {
         return this.data.value;
     }
 

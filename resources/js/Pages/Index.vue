@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { Head, router, useForm } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import FoodVariantIcon from "vue-material-design-icons/FoodVariant.vue";
@@ -24,8 +25,8 @@ interface Tags {
 const props = defineProps<{
     tags: Tags;
     videos?: Video;
-    has?: number[];
-    except?: number[] | null;
+    has?: HasOrExcept[];
+    except?: HasOrExcept[] | null;
     last_page?: number;
     current_page?: number;
 }>();
@@ -65,6 +66,15 @@ const handleNext = (page: number) => {
 };
 
 const numberSkeleton = 8;
+
+const tagsCurrents = computed(() => {
+    if (props.has) {
+        const dataMap = props.has.map((data) => data.name);
+        return dataMap.filter((value) => {
+            if (value) return value;
+        });
+    }
+});
 </script>
 
 <template>
@@ -167,6 +177,7 @@ const numberSkeleton = 8;
                         class="mb-5 md:mb-0"
                         v-for="dataIn in videos.data"
                         :key="dataIn.id"
+                        :tags-currents="(tagsCurrents as string[])"
                         :dataIn="dataIn"
                     />
                 </TransitionGroup>

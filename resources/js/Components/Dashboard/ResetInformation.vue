@@ -76,7 +76,7 @@ const handleSubmitInformation = () => {
                 id="email"
                 type="email"
                 v-model="formInformation.email"
-                label="Correo elétronico"
+                label="Correo eléctronico"
                 :is-required="true"
                 :error="formInformation.errors.email"
             />

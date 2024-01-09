@@ -52,7 +52,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="relative w-full" v-if="modelValue">
+    <div class="relative w-full mb-2 md:mb-0" v-if="modelValue">
         <vSelect
             :value="modelValue"
             @option:selected="
@@ -94,7 +94,7 @@ onMounted(() => {
             </template>
         </vSelect>
         <label
-            class="hidden md:flex select-label-form-up left-14"
+            class="flex select-label-form-up left-14"
             :class="
                 withWhite ? 'bg-[#F3F4F6] text-black' : 'bg-primary text-white'
             "

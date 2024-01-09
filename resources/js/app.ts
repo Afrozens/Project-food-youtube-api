@@ -8,7 +8,6 @@ import "quill/dist/quill.snow.css";
 import { createApp, h, DefineComponent } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import VueLazyLoad from "vue3-lazyload";
-import { messages } from "./Lang/messages";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 

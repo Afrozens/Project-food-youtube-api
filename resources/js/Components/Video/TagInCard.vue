@@ -3,20 +3,21 @@ import { HasOrExcept } from "@/types/video";
 type typeColor = "green" | "blue";
 
 defineProps<{
-    data: HasOrExcept;
+    data?: HasOrExcept;
+    current?: string;
     color: typeColor;
 }>();
 </script>
 
 <template>
     <div
-        class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded border w-max inline-flex items-center justify-center"
+        class="text-[14px] me-2 px-3 py-1.5 rounded border w-max inline-flex items-center justify-center"
         :class="
             color === 'blue'
-                ? 'border-blue-400 bg-blue-100 text-blue-800'
-                : 'border-green-400 bg-green-100 text-green-800'
+                ? 'bg-[#2A9AF3] text-white'
+                : 'bg-[#53B257] text-white'
         "
     >
-        {{ data.name }}
+        {{ current ?? data?.name }}
     </div>
 </template>

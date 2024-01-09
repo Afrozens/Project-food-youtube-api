@@ -4,15 +4,16 @@ import { toast } from "vue3-toastify";
 import TextArea from "../ElementsPrimitive/TextArea.vue";
 import TertiaryButton from "../ElementsPrimitive/TertiaryButton.vue";
 import Loader from "../General/Loader.vue";
-import ChatService from "@/Services/Dashboard/ChatService";
+import VideoService from "@/Services/Video/VideoService";
 
-const props = defineProps({
-    handleChange: Function,
-    data: String,
-    id: Number,
-});
+const props = defineProps<{
+    handleChange: () => void;
+    data: string;
+    commentId: string | number;
+    videoId: number;
+}>();
 
-const serviceChat = new ChatService();
+const serviceVideo = new VideoService();
 
 const modelValue = inject("modelValue") as Ref<string>;
 const isLoading = ref(false);
@@ -21,16 +22,17 @@ const comment = ref(props.data as string);
 const handleSubmit = async () => {
     try {
         isLoading.value = true;
-        const path = route("chats.update", {
-            id: props.id,
+        const path = route("videos.comments.update", {
+            video: props.videoId,
+            comment: props.commentId,
         });
         const data = {
             content: comment.value,
         };
-        await serviceChat.fetchUpdatedMsgInChat(path, data);
+        await serviceVideo.fetchUpdatedCommentInVideo(path, data);
         modelValue.value = comment.value;
         isLoading.value = false;
-        toast(serviceChat.getMsgSuccess(), {
+        toast(serviceVideo.getMsgSuccess(), {
             autoClose: 1800,
             position: "top-right",
             type: "success",
@@ -69,7 +71,7 @@ const handleSubmit = async () => {
                             <span v-show="!isLoading"> Actualizar</span>
                         </TertiaryButton>
                         <TertiaryButton
-                            @click="handleChange as () => void"
+                            @click="handleChange"
                             type="button"
                             :class="isLoading ? 'bg-gray-200' : 'bg-red-600'"
                         >

@@ -6,7 +6,6 @@ import GuestLayout from "@/Layouts/GuestLayout.vue";
 import InputError from "@/Components/ElementsPrimitive/InputError.vue";
 import HCaptcha from "@/Components/General/HCaptcha.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
-import TextInput from "@/Components/ElementsPrimitive/TextInput.vue";
 import ProvidersSign from "@/Components/General/ProvidersSign.vue";
 
 const form = useForm({
@@ -20,15 +19,16 @@ const withTokenCaptcha = ref();
 const errorCaptcha = ref();
 
 const submit = () => {
-    if (withTokenCaptcha) {
-        form.post(route("register"), {
-            onFinish: () => {
-                form.reset("password", "password_confirmation");
-            },
-        });
-    } else {
+    if (!withTokenCaptcha.value) {
         errorCaptcha.value = "Error in hCaptcha, try again";
+        return;
     }
+    console.log(withTokenCaptcha.value);
+    form.post(route("register"), {
+        onFinish: () => {
+            form.reset("password", "password_confirmation");
+        },
+    });
 };
 
 provide("withTokenCaptcha", withTokenCaptcha);

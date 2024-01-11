@@ -2,7 +2,9 @@
 import { ref, provide, computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import { toast } from "vue3-toastify";
+// @ts-ignore - iconos sin typings
 import NoteEditOutlineIcon from "vue-material-design-icons/NoteEditOutline.vue";
+// @ts-ignore - iconos sin typings
 import DeleteIcon from "vue-material-design-icons/Delete.vue";
 import VideoService from "@/Services/Video/VideoService";
 import { Comment as CommentType } from "../../types/chat";

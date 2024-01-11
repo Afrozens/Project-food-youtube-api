@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { usePage, Link } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import HomeIcon from "vue-material-design-icons/Home.vue";
@@ -17,7 +17,7 @@ import Dropdown from "@/Components/Dropdown/Dropdown.vue";
 
 const { props, url } = usePage();
 
-const isOpen = ref(false);
+const isOpen = ref(true);
 
 const dataUser = computed(() => {
     if (props.auth) {
@@ -33,6 +33,11 @@ function startsWithAdmin(url: string) {
 const handleClose = () => {
     isOpen.value = false;
 };
+
+const isOpenCurrent = computed(() => {
+    if (!startsWithAdmin(url)) return false;
+    return isOpen.value;
+});
 </script>
 
 <template>
@@ -41,11 +46,13 @@ const handleClose = () => {
     >
         <header
             v-if="dataUser"
-            class="flex px-2 md:px-6 z-[99] fixed justify-between items-center w-full h-16 shadow-md"
+            class="flex px-2 md:px-6 z-[99] fixed justify-between items-center w-full h-16"
             :class="
                 startsWithAdmin(url)
-                    ? 'bg-[#272727]'
-                    : 'bg-header-background bg-cover bg-no-repeat object-cover bg-primary'
+                    ? 'bg-[#272727] shadow-md'
+                    : url === '/'
+                    ? 'bg-transparent'
+                    : 'bg-header-background bg-cover bg-no-repeat object-cover bg-primary shadow-md'
             "
         >
             <div class="items-center flex">
@@ -175,14 +182,17 @@ const handleClose = () => {
         </header>
 
         <main
-            class="w-full mt-[64px] min-h-[calc(100vh-64px)] base-transition bg-transparent overflow-x-hidden"
-            :class="isOpen && 'md:ml-[240px] md:px-24'"
+            class="w-full min-h-[calc(100vh-64px)] base-transition bg-transparent overflow-x-hidden"
+            :class="[
+                isOpenCurrent && 'md:ml-[240px] md:px-24',
+                url === '/' ? 'mt-0' : 'mt-[64px]',
+            ]"
         >
             <slot class="overflow-x-hidden" />
             <Drawer
                 @close="handleClose"
                 v-if="startsWithAdmin(url)"
-                :sizeSidebar="isOpen"
+                :sizeSidebar="isOpenCurrent"
             />
         </main>
     </section>

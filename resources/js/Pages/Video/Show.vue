@@ -6,20 +6,19 @@ import VideoIcon from "vue-material-design-icons/Video.vue";
 // @ts-ignore - iconos sin typings
 import CommentMultipleIcon from "vue-material-design-icons/CommentMultiple.vue";
 import { VideoData } from "../../types/video";
-import { Comment as CommentType } from "../../types/chat";
-import VideoService from "../../Services/Video/VideoService";
 import Comment from "../../Components/Video/Comment.vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
 import CommentInVideo from "@/Components/Video/CommentInVideo.vue";
+import Loader from "@/Components/General/Loader.vue";
+import useComment from "@/Hooks/Video/useComment";
 
 const props = defineProps({
     video: Object,
 });
 
-const serviceVideo = new VideoService();
+const { isLoading, dataInComment, handleComment } = useComment();
 
 const dataNewComment = ref();
-const dataInComment = ref<CommentType[]>([]);
 
 const data = computed(() => {
     if (props.video) {
@@ -28,32 +27,8 @@ const data = computed(() => {
     }
 });
 
-const handleComment = async () => {
-    if (data.value?.id) {
-        try {
-            const path = route("videos.comments.index", {
-                video: data.value.id,
-            });
-
-            await serviceVideo.fetchGetComment(path);
-            const dataIn = serviceVideo.getData();
-            const commentsInChatOrder = dataIn.chats.sort(
-                (a: CommentType, b: CommentType) => {
-                    return (
-                        new Date(b.created_at).getTime() -
-                        new Date(a.created_at).getTime()
-                    );
-                }
-            );
-            dataInComment.value = [...commentsInChatOrder, ...dataIn.comments];
-        } catch (error) {
-            console.log(error);
-        }
-    }
-};
-
 if (data.value) {
-    handleComment();
+    handleComment(data.value.id);
 }
 
 const delMsg = (index: number) => {
@@ -101,7 +76,14 @@ provide("dataNewComment", dataNewComment);
                     <span class="text-[20px] leading-[30px]">Comments</span>
                 </header>
                 <CommentInVideo :video-id="data?.id" />
+                <div
+                    v-if="isLoading"
+                    class="w-full my-4 flex justify-center items-center"
+                >
+                    <Loader size="200" />
+                </div>
                 <TransitionGroup
+                    v-else
                     name="list"
                     tag="ul"
                     class="flex flex-col gap-4 mt-2"

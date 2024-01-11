@@ -8,7 +8,7 @@ import FormField from "@/Components/General/FormField.vue";
 import UrlYoutube from "@/Components/Admin/UrlYoutube.vue";
 import CustomSelect from "@/Components/ElementsPrimitive/CustomSelect.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
-import QuillField from "@/Components/General/QuillField.vue";
+import WysywygField from "@/Components/General/WysywygField.vue";
 import Loader from "@/Components/General/Loader.vue";
 import { toast } from "vue3-toastify";
 
@@ -87,6 +87,7 @@ provide("verifyUrl", verifyUrl);
                         :error="form.errors.title"
                     />
                     <CustomSelect
+                        style="margin-bottom: 24px"
                         :withWhite="true"
                         label="Tags"
                         title="tags"
@@ -97,8 +98,7 @@ provide("verifyUrl", verifyUrl);
                         :is-required="true"
                         :is-multiple="true"
                     />
-                    <QuillField
-                        placeholder="Write your description..."
+                    <WysywygField
                         :modelValue="form.description"
                         @update:modelValue="form.description = $event"
                     />

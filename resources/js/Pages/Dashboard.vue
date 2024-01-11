@@ -43,7 +43,7 @@ const chatData = computed(() => {
     <AuthenticatedLayout>
         <article
             v-if="dataUser"
-            class="py-4 w-full bg-cover flex flex-col bg-fixed px-8 lg:px-24 gap-8 bg-no-repeat bg-center bg-black-background min-h-screen"
+            class="py-4 w-full bg-cover flex flex-col bg-fixed px-8 lg:px-24 gap-8 bg-no-repeat bg-center bg-black-background min-h-screen bg-black"
         >
             <!-- Change image profile -->
             <div
@@ -58,7 +58,7 @@ const chatData = computed(() => {
                 <AccountIcon
                     class="child-button transition-all"
                     :size="120"
-                    fillColor="222222"
+                    fillColor="#6b7280"
                     v-else
                 />
                 <button

@@ -101,7 +101,7 @@ if (nameSplit.length === 1) {
         <p
             class="flex h-full items-center justify-center text-2xl font-bold text-white"
         >
-            {{ nameSplit }}
+            {{ nameSplit.toUpperCase() }}
         </p>
     </div>
 </template>

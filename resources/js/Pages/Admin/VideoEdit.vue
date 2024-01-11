@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import { computed, ref, provide } from "vue";
+import { toast } from "vue3-toastify";
 import { Head, router, useForm } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import QuillField from "@/Components/General/QuillField.vue";
+import WysywygField from "@/Components/General/WysywygField.vue";
 import { VideoData } from "@/types/video";
 import FormField from "@/Components/General/FormField.vue";
 import CustomSelect from "@/Components/ElementsPrimitive/CustomSelect.vue";
 import UrlYoutube from "@/Components/Admin/UrlYoutube.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 import Loader from "@/Components/General/Loader.vue";
-import { toast } from "vue3-toastify";
 
 const props = defineProps({
     tags: Object,
@@ -95,18 +95,17 @@ provide("urlCurrent", urlCurrent);
                     :error="form.errors.title"
                 />
                 <CustomSelect
+                    style="margin-bottom: 24px"
                     :withWhite="true"
                     label="Tags"
                     title="id"
-                    class="mb-6"
                     :model-value="form.tags"
                     @update:modelValue="form.tags = $event"
                     :options="tags?.data"
                     :is-required="true"
                     :is-multiple="true"
                 />
-                <QuillField
-                    placeholder="Write your description..."
+                <WysywygField
                     :modelValue="form.description"
                     @update:modelValue="form.description = $event"
                 />

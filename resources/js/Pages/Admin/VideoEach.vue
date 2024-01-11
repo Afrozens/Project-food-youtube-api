@@ -1,23 +1,44 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, provide } from "vue";
 import { Head } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import TextArea from "@/Components/ElementsPrimitive/TextArea.vue";
-import TertiaryButton from "@/Components/ElementsPrimitive/TertiaryButton.vue";
 import { VideoData } from "@/types/video";
+import Loader from "@/Components/General/Loader.vue";
+import Comment from "@/Components/Video/Comment.vue";
+import useComment from "@/Hooks/Video/useComment";
+import CommentInVideo from "@/Components/Video/CommentInVideo.vue";
 
 const props = defineProps({
     video: Object,
 });
 
-const comment = ref("");
-const isLoading = ref(false);
+const { isLoading, dataInComment, handleComment } = useComment();
+
+const dataNewComment = ref();
 
 const data = computed(() => {
     if (props.video) return props.video.data as VideoData;
 });
+
+if (data.value) {
+    handleComment(data.value.id);
+}
+
+const delMsg = (index: number) => {
+    dataInComment.value?.splice(index, 1);
+};
+
+const dataInCommentTotal = computed(() => {
+    if (dataNewComment.value) {
+        dataInComment.value.unshift(dataNewComment.value);
+        return dataInComment.value;
+    }
+    return dataInComment.value;
+});
+
+provide("dataNewComment", dataNewComment);
 </script>
 
 <template>
@@ -45,58 +66,27 @@ const data = computed(() => {
                         class="mb-8 text-black opacity-60"
                     />
                 </div>
-                <div class="border w-full bg-white h-96 py-5 px-2">
-                    <h4
-                        class="text-minus-base normal-case font-semibold text-center"
-                    >
-                        No hay comentarios
-                    </h4>
+                <CommentInVideo :video-id="data?.id" />
+                <div
+                    v-if="isLoading"
+                    class="w-full my-4 flex justify-center items-center"
+                >
+                    <Loader size="200" />
                 </div>
-                <div class="w-full bg-white rounded-md p-4 pt-6">
-                    <form class="w-full h-full">
-                        <TextArea
-                            class="mb-8"
-                            id="comentario"
-                            v-model="comment"
-                            label="Comentario"
-                            :is-required="true"
-                        >
-                            <template #btn-left>
-                                <div
-                                    class="self-end w-full flex gap-4 items-center"
-                                >
-                                    <TertiaryButton
-                                        type="button"
-                                        :class="
-                                            isLoading
-                                                ? 'bg-gray-200'
-                                                : 'bg-green-600'
-                                        "
-                                    >
-                                        <Loader v-show="isLoading" />
-                                        <span v-show="!isLoading">
-                                            Comentar</span
-                                        >
-                                    </TertiaryButton>
-                                    <TertiaryButton
-                                        @click="comment = ''"
-                                        type="button"
-                                        :class="
-                                            isLoading
-                                                ? 'bg-gray-200'
-                                                : 'bg-red-600'
-                                        "
-                                    >
-                                        <Loader v-show="isLoading" />
-                                        <span v-show="!isLoading">
-                                            Restaurar
-                                        </span>
-                                    </TertiaryButton>
-                                </div>
-                            </template>
-                        </TextArea>
-                    </form>
-                </div>
+                <TransitionGroup
+                    v-else
+                    name="list"
+                    tag="ul"
+                    class="flex flex-col gap-4 mt-2"
+                >
+                    <Comment
+                        v-for="(comment, index) in dataInCommentTotal"
+                        :comment="comment"
+                        :key="comment.id"
+                        :video-id="(data?.id as number)"
+                        @deleted="delMsg(index)"
+                    />
+                </TransitionGroup>
             </article>
         </section>
     </AuthenticatedLayout>

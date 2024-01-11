@@ -2,14 +2,13 @@ import "./bootstrap";
 import "../css/app.css";
 import "vue-select/dist/vue-select.css";
 import "vue3-toastify/dist/index.css";
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
 
 import { createApp, h, DefineComponent } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import VueLazyLoad from "vue3-lazyload";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
+import CKEditorPlugin from "@ckeditor/ckeditor5-vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -25,6 +24,7 @@ createInertiaApp({
             .use(plugin)
             .use(VueLazyLoad, {})
             .use(ZiggyVue, Ziggy)
+            .use(CKEditorPlugin)
             .mount(el);
     },
     progress: {

@@ -60,12 +60,6 @@ defineExpose({ focus: () => input.value?.focus() });
             <slot name="btn-left" />
             <div class="flex ps-0 space-x-1 rtl:space-x-reverse sm:ps-2">
                 <slot name="btn-right" />
-                <button
-                    type="button"
-                    class="inline-flex justify-center items-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 hover:opacity-60 transition-all"
-                >
-                    <EmoticonOutlineIcon />
-                </button>
             </div>
         </div>
     </div>

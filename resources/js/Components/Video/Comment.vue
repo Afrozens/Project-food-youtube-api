@@ -77,7 +77,7 @@ provide("modelValue", modelValue);
                 :name="comment.name"
                 class="w-10 h-10"
             />
-            <span>{{ comment.name }}</span>
+            <span>@{{ comment.name }}</span>
         </header>
 
         <div v-if="!inEdit" class="w-full">

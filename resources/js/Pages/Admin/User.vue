@@ -55,7 +55,6 @@ onMounted(() => {
         );
         //Vue select type not default value
         form.type = type;
-        console.log(type, "pepe");
         form.search = props.search as string;
     }
 });

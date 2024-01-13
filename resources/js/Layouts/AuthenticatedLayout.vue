@@ -14,6 +14,7 @@ import LogoutIcon from "vue-material-design-icons/Logout.vue";
 import Drawer from "@/Components/Admin/Drawer.vue";
 import AvatarGenerate from "@/Components/General/AvatarGenerate.vue";
 import Dropdown from "@/Components/Dropdown/Dropdown.vue";
+import { startsWithVideosHas, startsWithAdmin } from "@/Utils/urlUtils";
 
 const { props, url } = usePage();
 
@@ -24,15 +25,6 @@ const dataUser = computed(() => {
         return props.auth.data;
     }
 });
-
-function startsWithAdmin(url: string) {
-    if (/^\/admin/.test(url) || /^\/chats/.test(url)) return true;
-    return false;
-}
-
-function startsWithVideosHas(url: string) {
-    return url.startsWith("/videos?has");
-}
 
 const handleClose = () => {
     isOpen.value = false;
@@ -50,7 +42,7 @@ const isOpenCurrent = computed(() => {
     >
         <header
             v-if="dataUser"
-            class="flex px-2 md:px-6 z-[99] fixed justify-between items-center w-full h-16"
+            class="flex px-2 md:px-6 z-[99] absolute justify-between items-center w-full h-16"
             :class="
                 startsWithAdmin(url)
                     ? 'bg-[#272727] shadow-md'

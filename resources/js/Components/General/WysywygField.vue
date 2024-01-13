@@ -71,7 +71,6 @@ watch(content, () => {
 </script>
 
 <template>
-    {{ content }}
     <div class="w-full flex flex-col">
         <ckeditor :config="editorConfig" :editor="editor" v-model="content" />
         <InputError class="mt-2" :message="error" />

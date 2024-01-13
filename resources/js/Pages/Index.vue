@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-import { Head, router, useForm } from "@inertiajs/vue3";
+import { computed, shallowRef, ref, onMounted } from "vue";
+import { Head, router, useForm, usePage } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import FoodVariantIcon from "vue-material-design-icons/FoodVariant.vue";
 // @ts-ignore - iconos sin typings
@@ -8,6 +8,7 @@ import FoodVariantOffIcon from "vue-material-design-icons/FoodVariantOff.vue";
 // @ts-ignore - iconos sin typings
 import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 import CustomSelect from "@/Components/ElementsPrimitive/CustomSelect.vue";
 import Card from "@/Components/Video/Card.vue";
@@ -15,27 +16,44 @@ import CardSkeleton from "@/Components/Video/CardSkeleton.vue";
 import { HasOrExcept, Video } from "@/types/video";
 import Loader from "@/Components/General/Loader.vue";
 import Paginate from "@/Components/General/Paginate.vue";
-import { ref } from "vue";
 import Banner from "@/Components/General/Banner.vue";
+import { startsWithVideosHas } from "@/Utils/urlUtils";
 
 interface Tags {
     data: [];
 }
 
+interface Id {
+    id: number;
+}
+
 const props = defineProps<{
     tags: Tags;
     videos?: Video;
+    tags_has: Tags;
+    tags_except: Tags;
     has?: HasOrExcept[];
     except?: HasOrExcept[] | null;
     last_page?: number;
     current_page?: number;
 }>();
 
+const { props: propsAuth, url } = usePage();
+
 const isLoading = ref(false);
+const layout = shallowRef(propsAuth.auth ? AuthenticatedLayout : GuestLayout);
 
 const form = useForm({
     has: [] as HasOrExcept[],
     except: [] as HasOrExcept[],
+});
+
+onMounted(() => {
+    if (props.tags_has || props.tags_except) {
+        //Vue select type not default value
+        form.has = props.tags_has.data;
+        form.except = props.tags_except.data;
+    }
 });
 
 const handleSend = () => {
@@ -80,14 +98,21 @@ const tagsCurrents = computed(() => {
 <template>
     <Head title="Inicio" />
 
-    <AuthenticatedLayout>
+    <component :is="layout">
         <header
             class="px-14 w-full pb-14 py-20 bg-primary bg-index-background bg-cover bg-no-repeat object-cover flex gap-4 items-center flex-col md:flex-row justify-between rounded-b-xl"
         >
             <div
                 class="w-full flex-col self-center pb-4 md:pb-0 flex-grow gap-4 flex lg:flex-row justify-between"
             >
-                <div class="relative w-full self-end">
+                <div
+                    class="relative w-full self-end"
+                    v-if="
+                        startsWithVideosHas(url)
+                            ? form.has.length > 0
+                            : form.has
+                    "
+                >
                     <div
                         class="absolute inset-y-0 left-4 flex items-center pr-3 pointer-events-none z-40"
                     >
@@ -103,7 +128,14 @@ const tagsCurrents = computed(() => {
                         :is-multiple="true"
                     />
                 </div>
-                <div class="relative w-full self-end">
+                <div
+                    class="relative w-full self-end"
+                    v-if="
+                        startsWithVideosHas(url)
+                            ? form.except.length > 0
+                            : form.except
+                    "
+                >
                     <div
                         class="absolute inset-y-0 left-4 flex items-center pr-3 pointer-events-none z-40"
                     >
@@ -199,7 +231,7 @@ const tagsCurrents = computed(() => {
             </span>
         </section>
         <Banner v-if="videos?.data || videos?.data.length === 0" />
-    </AuthenticatedLayout>
+    </component>
 </template>
 
 <style scoped>

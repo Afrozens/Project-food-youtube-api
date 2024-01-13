@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { h, ref, onMounted } from "vue";
+import { h, ref, onMounted, watch } from "vue";
 import vSelect from "vue-select";
 // @ts-ignore - iconos sin typings
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
@@ -13,18 +13,15 @@ interface optionSelect {
     name: string;
 }
 
-const props = defineProps({
-    options: Array<optionSelect>,
-    label: String,
-    title: String,
-    isRequired: {
-        required: false,
-        type: Boolean,
-    },
-    modelValue: Array,
-    withWhite: Boolean,
-    isMultiple: Boolean,
-});
+const props = defineProps<{
+    options: Array<optionSelect>;
+    label: string;
+    title: string;
+    modelValue: Array<HasOrExcept>;
+    isMultiple: boolean;
+    withWhite?: boolean;
+    isRequired?: boolean;
+}>();
 
 defineEmits(["update:modelValue"]);
 const data = ref();
@@ -45,14 +42,14 @@ vSelect.props.components.default = () => ({
 });
 
 onMounted(() => {
-    if (data.value) {
+    if (data.value && props.modelValue) {
         data.value.updateValue(props.modelValue);
     }
 });
 </script>
 
 <template>
-    <div class="relative w-full mb-2 md:mb-0" v-if="modelValue">
+    <div class="relative w-full mb-2 md:mb-0" v-if="props.modelValue">
         <vSelect
             :value="modelValue"
             @option:selected="
@@ -79,7 +76,11 @@ onMounted(() => {
                     <CustomCheckbox
                         class="checkbox-parent"
                         :checked="
-                            modelValue ? modelValue?.includes(option.id) : false
+                            modelValue
+                                ? modelValue.some(
+                                      (item) => item.id === option.id
+                                  )
+                                : false
                         "
                     />
                     <span class="ml-2 text-minus-base font-medium capitalize">{{

@@ -11,6 +11,7 @@ import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 import WysywygField from "@/Components/General/WysywygField.vue";
 import Loader from "@/Components/General/Loader.vue";
 import { toast } from "vue3-toastify";
+import { HasOrExcept } from "@/types/video";
 interface Tags {
     data: [];
 }
@@ -33,6 +34,10 @@ const handleSend = () => {
     form.clearErrors();
     const path = route("admin.videos.store");
     form.videoId = videoId.value;
+    form.transform((data) => ({
+        ...data,
+        tags: form.tags?.map((tag: HasOrExcept) => tag.id),
+    }));
     form.post(path, {
         forceFormData: true,
         onSuccess: () => {
@@ -91,15 +96,15 @@ provide("verifyUrl", verifyUrl);
                     />
 
                     <CustomSelect
+                        style="margin-bottom: 24px"
+                        :withWhite="true"
+                        label="Tags"
+                        title="name"
                         :model-value="form.tags"
                         @update:modelValue="form.tags = $event"
                         :options="tags?.data"
-                        label="Tags"
-                        title="name"
                         :is-required="true"
                         :is-multiple="true"
-                        :withWhite="true"
-                        style="margin-bottom: 24px"
                     />
                     <WysywygField
                         :modelValue="form.description"

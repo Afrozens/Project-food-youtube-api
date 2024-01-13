@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { startsWithVideosHas, startWithGuest } from "@/Utils/urlUtils";
+
+const { url } = usePage();
 </script>
 
 <template>
@@ -7,13 +10,19 @@ import { Link } from "@inertiajs/vue3";
         class="min-h-screen flex flex-col justify-between items-center bg-gray-100"
     >
         <header
-            class="flex px-6 justify-between items-center w-full h-16 bg-header-background bg-cover bg-no-repeat object-cover bg-primary shadow-md"
+            class="flex px-2 md:px-6 z-[99] absolute justify-between items-center w-full h-16"
+            :class="
+                url === '/' || startsWithVideosHas(url)
+                    ? 'bg-transparent'
+                    : 'bg-header-background bg-cover bg-no-repeat object-cover bg-primary shadow-md'
+            "
         >
-            <h3
-                class="text-base md:text-lg text-white font-semibold capitalize"
+            <Link
+                :href="route('index')"
+                class="text-lg lg:text-xl hover:opacity-80 cursor-pointer transition-all text-white font-medium capitalize"
             >
                 Es Mediterraneo
-            </h3>
+            </Link>
 
             <div class="flex items-center gap-4">
                 <Link
@@ -32,7 +41,14 @@ import { Link } from "@inertiajs/vue3";
         </header>
 
         <article
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-transparent overflow-hidden"
+            :class="[
+                url === '/' || startsWithVideosHas(url)
+                    ? 'mt-0 min-h-screen'
+                    : 'mt-[64px] min-h-[calc(100vh-64px)]',
+                startWithGuest(url)
+                    ? 'w-full sm:max-w-md  flex flex-col justify-center mt-6 px-6 py-4 bg-transparent overflow-hidden  -mb-12'
+                    : 'w-full base-transition bg-transparent overflow-x-hidden',
+            ]"
         >
             <slot />
         </article>

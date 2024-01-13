@@ -6,7 +6,7 @@ import { Head, router, useForm } from "@inertiajs/vue3";
 import VideoIcon from "vue-material-design-icons/Video.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import WysywygField from "@/Components/General/WysywygField.vue";
-import { VideoData } from "@/types/video";
+import { HasOrExcept, VideoData } from "@/types/video";
 import FormField from "@/Components/General/FormField.vue";
 import CustomSelect from "@/Components/ElementsPrimitive/CustomSelect.vue";
 import UrlYoutube from "@/Components/Admin/UrlYoutube.vue";
@@ -98,8 +98,8 @@ provide("urlCurrent", urlCurrent);
                     style="margin-bottom: 24px"
                     :withWhite="true"
                     label="Tags"
-                    title="id"
-                    :model-value="form.tags"
+                    title="name"
+                    :model-value="(form.tags as HasOrExcept[])"
                     @update:modelValue="form.tags = $event"
                     :options="tags?.data"
                     :is-required="true"

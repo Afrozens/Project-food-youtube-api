@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, provide } from "vue";
+import { ref, computed, provide, shallowRef } from "vue";
 import { Head, usePage } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
@@ -8,6 +8,7 @@ import CommentMultipleIcon from "vue-material-design-icons/CommentMultiple.vue";
 import { VideoData } from "../../types/video";
 import Comment from "../../Components/Video/Comment.vue";
 import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 import CommentInVideo from "@/Components/Video/CommentInVideo.vue";
 import Loader from "@/Components/General/Loader.vue";
 import useComment from "@/Hooks/Video/useComment";
@@ -21,6 +22,7 @@ const { props: propsAuth } = usePage();
 const { isLoading, dataInComment, handleComment } = useComment();
 
 const dataNewComment = ref();
+const layout = shallowRef(propsAuth.auth ? AuthenticatedLayout : GuestLayout);
 
 const data = computed(() => {
     if (props.video) {
@@ -51,7 +53,7 @@ provide("dataNewComment", dataNewComment);
 <template>
     <Head :title="data?.title" />
 
-    <AuthenticatedLayout>
+    <component :is="layout">
         <section class="w-full px-4 md:px-12 py-4">
             <header class="w-full">
                 <h1
@@ -100,7 +102,7 @@ provide("dataNewComment", dataNewComment);
                 </TransitionGroup>
             </article>
         </section>
-    </AuthenticatedLayout>
+    </component>
 </template>
 
 <style scoped>

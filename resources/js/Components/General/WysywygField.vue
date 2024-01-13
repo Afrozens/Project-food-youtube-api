@@ -12,9 +12,11 @@ import {
     ImageStyle,
     ImageToolbar,
     ImageUpload,
+    ImageInsert,
 } from "@ckeditor/ckeditor5-image";
 import { Heading } from "@ckeditor/ckeditor5-heading";
 import InputError from "../ElementsPrimitive/InputError.vue";
+import { uploader } from "@/Services/CkeditorService";
 
 const props = defineProps({
     modelValue: String,
@@ -33,12 +35,12 @@ const editorConfig = reactive({
         Paragraph,
         Heading,
         Image,
+        ImageInsert,
         ImageCaption,
         ImageStyle,
         ImageToolbar,
         ImageUpload,
     ],
-
     toolbar: {
         items: [
             "bold",
@@ -47,19 +49,15 @@ const editorConfig = reactive({
             "undo",
             "numberedList",
             "bulletedList",
-            "imageUpload",
+            "insertImage",
             "heading",
             "redo",
             "undo",
         ],
     },
+    extraPlugins: [uploader],
     image: {
-        toolbar: [
-            "imageTextAlternative",
-            "|",
-            "imageStyle:full",
-            "imageStyle:side",
-        ],
+        toolbar: ["imageTextAlternative", "|", "imageStyle:side"],
     },
 });
 const editor = ref(ClassicEditor);
@@ -73,6 +71,7 @@ watch(content, () => {
 </script>
 
 <template>
+    {{ content }}
     <div class="w-full flex flex-col">
         <ckeditor :config="editorConfig" :editor="editor" v-model="content" />
         <InputError class="mt-2" :message="error" />

@@ -30,6 +30,10 @@ function startsWithAdmin(url: string) {
     return false;
 }
 
+function startsWithVideosHas(url: string) {
+    return url.startsWith("/videos?has");
+}
+
 const handleClose = () => {
     isOpen.value = false;
 };
@@ -50,7 +54,7 @@ const isOpenCurrent = computed(() => {
             :class="
                 startsWithAdmin(url)
                     ? 'bg-[#272727] shadow-md'
-                    : url === '/'
+                    : url === '/' || startsWithVideosHas(url)
                     ? 'bg-transparent'
                     : 'bg-header-background bg-cover bg-no-repeat object-cover bg-primary shadow-md'
             "
@@ -185,7 +189,7 @@ const isOpenCurrent = computed(() => {
             class="w-full min-h-[calc(100vh-64px)] base-transition bg-transparent overflow-x-hidden"
             :class="[
                 isOpenCurrent && 'md:ml-[240px] md:px-24',
-                url === '/' ? 'mt-0' : 'mt-[64px]',
+                url === '/' || startsWithVideosHas(url) ? 'mt-0' : 'mt-[64px]',
             ]"
         >
             <slot class="overflow-x-hidden" />

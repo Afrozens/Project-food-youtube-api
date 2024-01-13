@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, computed, provide } from "vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
 // @ts-ignore - iconos sin typings
 import VideoIcon from "vue-material-design-icons/Video.vue";
 // @ts-ignore - iconos sin typings
@@ -15,6 +15,8 @@ import useComment from "@/Hooks/Video/useComment";
 const props = defineProps({
     video: Object,
 });
+
+const { props: propsAuth } = usePage();
 
 const { isLoading, dataInComment, handleComment } = useComment();
 
@@ -65,7 +67,7 @@ provide("dataNewComment", dataNewComment);
                 class="bg-cover w-full h-[500px] bg-no-repeat bg-center"
             />
             <p
-                class="text-[14px] mb-8 text-black"
+                class="text-[14px] mb-8 mt-4 text-black"
                 v-html="data?.description"
             ></p>
             <article
@@ -75,7 +77,7 @@ provide("dataNewComment", dataNewComment);
                     <CommentMultipleIcon fillColor="#757575" />
                     <span class="text-[20px] leading-[30px]">Comments</span>
                 </header>
-                <CommentInVideo :video-id="data?.id" />
+                <CommentInVideo v-if="propsAuth.auth" :video-id="data?.id" />
                 <div
                     v-if="isLoading"
                     class="w-full my-4 flex justify-center items-center"

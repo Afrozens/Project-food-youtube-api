@@ -46,6 +46,9 @@ const chatData = computed(() => {
             class="py-4 w-full bg-cover flex flex-col bg-fixed px-8 lg:px-24 gap-8 bg-no-repeat bg-center bg-black-background min-h-screen bg-black"
         >
             <!-- Change image profile -->
+            <h2 class="text-2xl text-center font-extrabold text-white">
+                Cambia tu imagen de perfil
+            </h2>
             <div
                 class="mx-auto my-6 parent-button relative flex hover:bg-[#202020b2] transition-all items-center justify-center rounded-full w-[170px] h-[170px] bg-transparent shadow-2xl"
             >

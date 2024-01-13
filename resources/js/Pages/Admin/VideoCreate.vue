@@ -11,10 +11,12 @@ import PrimaryButton from "@/Components/ElementsPrimitive/PrimaryButton.vue";
 import WysywygField from "@/Components/General/WysywygField.vue";
 import Loader from "@/Components/General/Loader.vue";
 import { toast } from "vue3-toastify";
-
-defineProps({
-    tags: Object,
-});
+interface Tags {
+    data: [];
+}
+defineProps<{
+    tags: Tags;
+}>();
 
 const urlCurrent = ref("");
 const videoId = ref("");
@@ -41,12 +43,13 @@ const handleSend = () => {
             });
             router.get(route("admin.videos.index"));
         },
-        onError: () => {
+        onError: (res) => {
             toast("No se pudo crear un video", {
                 autoClose: 1000,
                 position: "top-right",
                 type: "error",
             });
+            console.log(res);
         },
     });
 };
@@ -86,17 +89,17 @@ provide("verifyUrl", verifyUrl);
                         v-model="form.title"
                         :error="form.errors.title"
                     />
+
                     <CustomSelect
-                        style="margin-bottom: 24px"
-                        :withWhite="true"
-                        label="Tags"
-                        title="tags"
-                        class="mb-6"
                         :model-value="form.tags"
                         @update:modelValue="form.tags = $event"
-                        :options="tags && tags.data"
+                        :options="tags?.data"
+                        label="Tags"
+                        title="name"
                         :is-required="true"
                         :is-multiple="true"
+                        :withWhite="true"
+                        style="margin-bottom: 24px"
                     />
                     <WysywygField
                         :modelValue="form.description"

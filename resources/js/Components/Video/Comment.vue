@@ -77,7 +77,9 @@ provide("modelValue", modelValue);
                 :name="comment.name"
                 class="w-10 h-10"
             />
-            <span>@{{ comment.name }}</span>
+            <span>{{
+                comment.user_id ? `@${comment.name}` : comment.name
+            }}</span>
         </header>
 
         <div v-if="!inEdit" class="w-full">
@@ -86,7 +88,10 @@ provide("modelValue", modelValue);
                 v-html="content"
             ></p>
             <div
-                v-if="comment.user_id === propsPage.auth.data.id"
+                v-if="
+                    comment.user_id ===
+                    (propsPage.auth && propsPage.auth.data.id)
+                "
                 class="items-end justify-end w-full flex gap-4"
             >
                 <!-- Edit button msg -->

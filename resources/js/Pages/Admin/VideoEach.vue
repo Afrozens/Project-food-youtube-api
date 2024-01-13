@@ -63,7 +63,7 @@ provide("dataNewComment", dataNewComment);
                     />
                     <p
                         v-html="data?.description"
-                        class="mb-8 text-black opacity-60"
+                        class="mb-8 mt-4 text-black"
                     />
                 </div>
                 <CommentInVideo :video-id="data?.id" />

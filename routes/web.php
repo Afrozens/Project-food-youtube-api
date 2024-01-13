@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Video\VideoController;
+use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\Video\CommentController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -23,7 +24,7 @@ use App\Models\User;
 */
 
 
-Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -116,5 +117,7 @@ Route::get('/symlink', function () {
 Route::get('/cache-clear', function () {
     Artisan::call('optimize');
 });
+
+Route::post('ckeditor/upload', [CkeditorController::class, 'upload'])->name('ckeditor.upload');
 
 require __DIR__ . '/auth.php';

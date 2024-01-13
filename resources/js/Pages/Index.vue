@@ -105,14 +105,7 @@ const tagsCurrents = computed(() => {
             <div
                 class="w-full flex-col self-center pb-4 md:pb-0 flex-grow gap-4 flex lg:flex-row justify-between"
             >
-                <div
-                    class="relative w-full self-end"
-                    v-if="
-                        startsWithVideosHas(url)
-                            ? form.has.length > 0
-                            : form.has
-                    "
-                >
+                <div class="relative w-full self-end">
                     <div
                         class="absolute inset-y-0 left-4 flex items-center pr-3 pointer-events-none z-40"
                     >
@@ -128,14 +121,7 @@ const tagsCurrents = computed(() => {
                         :is-multiple="true"
                     />
                 </div>
-                <div
-                    class="relative w-full self-end"
-                    v-if="
-                        startsWithVideosHas(url)
-                            ? form.except.length > 0
-                            : form.except
-                    "
-                >
+                <div class="relative w-full self-end">
                     <div
                         class="absolute inset-y-0 left-4 flex items-center pr-3 pointer-events-none z-40"
                     >

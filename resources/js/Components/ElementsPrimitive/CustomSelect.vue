@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { h, ref, onMounted, watch } from "vue";
+import { h, ref, onMounted, computed } from "vue";
 import vSelect from "vue-select";
 // @ts-ignore - iconos sin typings
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
@@ -41,17 +41,19 @@ vSelect.props.components.default = () => ({
     },
 });
 
-onMounted(() => {
-    if (data.value && props.modelValue) {
+const value = computed(() => {
+    if (props.modelValue.length > 0) {
         data.value.updateValue(props.modelValue);
+        return props.modelValue;
     }
+    return props.modelValue;
 });
 </script>
 
 <template>
-    <div class="relative w-full mb-2 md:mb-0" v-if="props.modelValue">
+    <div class="relative w-full mb-2 md:mb-0" v-if="value">
         <vSelect
-            :value="modelValue"
+            :value="value"
             @option:selected="
                 $emit(
                     'update:modelValue',
@@ -76,10 +78,8 @@ onMounted(() => {
                     <CustomCheckbox
                         class="checkbox-parent"
                         :checked="
-                            modelValue
-                                ? modelValue.some(
-                                      (item) => item.id === option.id
-                                  )
+                            value
+                                ? value.some((item) => item.id === option.id)
                                 : false
                         "
                     />

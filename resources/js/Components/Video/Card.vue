@@ -30,6 +30,18 @@ const tagsWithoutCurrents = computed(() => {
         return filteredTags;
     }
 });
+
+const tagsWithCurrents = computed(() => {
+    if (props.dataIn) {
+        const result = props.tagsCurrents.map((tagCurrent) => {
+            return props.dataIn?.has_more.find(
+                (tag) => tag.name === tagCurrent
+            );
+        });
+
+        return result.map((item) => item?.name).filter((item) => item);
+    }
+});
 </script>
 
 <template>
@@ -91,7 +103,7 @@ const tagsWithoutCurrents = computed(() => {
         <div class="w-full p-4 flex flex-col gap-2 justify-between">
             <div class="w-full flex gap-2 flex-wrap">
                 <TagInCard
-                    v-for="(data, index) in tagsCurrents"
+                    v-for="(data, index) in tagsWithCurrents"
                     :key="index"
                     color="green"
                     :current="data"

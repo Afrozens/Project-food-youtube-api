@@ -46,6 +46,7 @@ const form = useForm({
               value: string;
           }
     )[],
+    page: 1,
 });
 
 onMounted(() => {
@@ -109,8 +110,8 @@ const handleGetUsers = (page: number | null) => {
     localStorage.setItem("type", JSON.stringify(form.type));
     form.transform((data) => ({
         ...data,
-        type: form.type[0].value,
-        page,
+        type: form.type[0] ? form.type[0].value : "",
+        page: page,
     }));
 
     form.get(path, {

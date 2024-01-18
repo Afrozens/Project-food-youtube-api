@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { h, ref, onMounted, computed } from "vue";
+import { h, ref, computed } from "vue";
+import Fuse from "fuse.js";
 import vSelect from "vue-select";
 // @ts-ignore - iconos sin typings
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
@@ -42,17 +43,30 @@ vSelect.props.components.default = () => ({
 });
 
 const value = computed(() => {
-    if (props.modelValue.length > 0) {
+    if (data.value && props.modelValue.length > 0) {
         data.value.updateValue(props.modelValue);
         return props.modelValue;
     }
     return props.modelValue;
 });
+
+const fuseSearch = (options: HasOrExcept[], search: string) => {
+    const fuse = new Fuse(options, {
+        keys: ["name"],
+        shouldSort: true,
+        threshold: 0.3,
+    });
+    return search.length
+        ? fuse.search(search).map(({ item }) => item)
+        : // @ts-ignore - fuse sin typings
+          fuse.list;
+};
 </script>
 
 <template>
     <div class="relative w-full mb-2 md:mb-0" v-if="value">
         <vSelect
+            :filter="fuseSearch"
             :value="value"
             @option:selected="
                 $emit(

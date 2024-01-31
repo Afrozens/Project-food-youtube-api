@@ -18,6 +18,7 @@ import Loader from "@/Components/General/Loader.vue";
 import Paginate from "@/Components/General/Paginate.vue";
 import Banner from "@/Components/General/Banner.vue";
 import { startsWithVideosHas } from "@/Utils/urlUtils";
+import BannerTwo from "@/Components/General/BannerTwo.vue";
 
 interface Tags {
     data: [];
@@ -84,6 +85,7 @@ const handleNext = (page: number) => {
 };
 
 const numberSkeleton = 8;
+const numberAds = 12;
 
 const tagsCurrents = computed(() => {
     if (props.has) {
@@ -99,12 +101,14 @@ const tagsCurrents = computed(() => {
     <Head title="Inicio" />
 
     <component :is="layout">
+        <!-- header with two searchs for ingredients for search food -->
         <header
-            class="px-14 w-full pb-14 py-20 bg-primary bg-index-background bg-cover bg-no-repeat object-cover flex gap-4 items-center flex-col md:flex-row justify-between rounded-b-xl"
+            class="px-14 w-full pb-14 py-20 bg-primary bg-header-secondary-background bg-cover bg-no-repeat object-cover flex gap-4 items-center flex-col md:flex-row justify-between rounded-b-xl md:bg-index-background"
         >
             <div
                 class="w-full flex-col self-center pb-4 md:pb-0 flex-grow gap-4 flex lg:flex-row justify-between"
             >
+                <!-- search for "que ingredientes debe contener" -->
                 <div class="relative w-full self-end">
                     <div
                         class="absolute inset-y-0 left-4 flex items-center pr-3 pointer-events-none z-40"
@@ -121,6 +125,7 @@ const tagsCurrents = computed(() => {
                         :is-multiple="true"
                     />
                 </div>
+                <!-- search for "que ingredientes NO debe contener" -->
                 <div class="relative w-full self-end">
                     <div
                         class="absolute inset-y-0 left-4 flex items-center pr-3 pointer-events-none z-40"
@@ -138,6 +143,7 @@ const tagsCurrents = computed(() => {
                     />
                 </div>
             </div>
+            <!-- header - button with fetch for data of foods with ingredients -->
             <PrimaryButton
                 @click.prevent="handleSend"
                 :class="{ 'bg-gray-200': form.processing }"
@@ -153,6 +159,14 @@ const tagsCurrents = computed(() => {
         </header>
 
         <hr class="h-px my-5 bg-gray-300 border-0 col-span-2" />
+
+        <!-- banners with ads -->
+        <section
+            v-if="!tags_has"
+            class="w-full grid grid-cols-1 lg:grid-cols-3 gap-x-4 px-2 md:px-12"
+        >
+            <BannerTwo v-for="index in numberAds" :key="index" />
+        </section>
 
         <!-- Loader skeleton for cards in video -->
         <section class="w-full" v-if="form.processing || isLoading">
@@ -190,6 +204,7 @@ const tagsCurrents = computed(() => {
                     name="list"
                     tag="ul"
                 >
+                    <!-- list of all foods in cards -->
                     <Card
                         v-if="!form.processing && !isLoading"
                         class="mb-5 md:mb-0"
@@ -199,6 +214,7 @@ const tagsCurrents = computed(() => {
                         :dataIn="dataIn"
                     />
                 </TransitionGroup>
+                <!-- button for paginate of videos -->
                 <Paginate
                     @next="handleNext"
                     :length="last_page"
@@ -206,6 +222,7 @@ const tagsCurrents = computed(() => {
                 />
             </section>
         </Transition>
+        <!-- if not get videos -->
         <section
             v-else-if="
                 !form.processing && !isLoading && videos?.data.length === 0

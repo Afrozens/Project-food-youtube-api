@@ -18,7 +18,8 @@ export default {
             backgroundImage: {
                 'black-background': "url('/img/black-background.png')",
                 'index-background': "url('/img/banner01.png')",
-                'header-background': "url('/img/banner02.png')"
+                'header-background': "url('/img/banner02.png')",
+                'header-secondary-background': "url('/img/banner03.jpg')"
             },
             backgroundColor: {
                 primary: '#1976D2'
